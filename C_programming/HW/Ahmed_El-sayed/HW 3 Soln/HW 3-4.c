@@ -6,9 +6,9 @@ void main(){
 	int Elements,location,i;
 	printf("Enter no. of Elements: ");
 	scanf(" %d",&Elements);
+	printf("Enter Elements of Array: ");
 	for(i=0;i<Elements;i++){
-		a[i]=i+1;
-		printf("%g",a[i]);
+		scanf(" %f",&a[i]);
 	}
 	printf("\nEnter the Element to be inserted: ");
 	scanf(" %f",&new_Element);
