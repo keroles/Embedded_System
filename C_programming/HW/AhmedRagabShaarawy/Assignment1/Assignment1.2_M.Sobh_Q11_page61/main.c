@@ -2,7 +2,7 @@
 
 int main()
 {
-    unsigned int day, month, year, givenYear, daysNums= 1, i, trueDay= 0, trueMonth= 0 ;
+    unsigned int day, month, year, givenYear, daysNums= 0, i, trueDay= 0, trueMonth= 0 ;
 
     printf("Enter a date<dd mm yy>: ");
     scanf("%d %d %d", &day, &month, &year );

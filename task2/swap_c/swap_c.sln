@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "swap_c", "swap_c\swap_c.vcproj", "{DD6640A5-D6E1-46F6-B6CB-BA3BD7973631}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DD6640A5-D6E1-46F6-B6CB-BA3BD7973631}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DD6640A5-D6E1-46F6-B6CB-BA3BD7973631}.Debug|Win32.Build.0 = Debug|Win32
+		{DD6640A5-D6E1-46F6-B6CB-BA3BD7973631}.Release|Win32.ActiveCfg = Release|Win32
+		{DD6640A5-D6E1-46F6-B6CB-BA3BD7973631}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
