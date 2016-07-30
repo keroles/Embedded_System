@@ -1,0 +1,20 @@
+﻿Build started 7/19/2016 11:58:08 AM.
+     1>Project "D:\c++&c\new_diploma\programms\HomeWork2_EX6\HomeWork2_EX6\HomeWork2_EX6.vcxproj" on node 2 (build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\HomeWork2_EX6.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         All outputs are up-to-date.
+       ManifestResourceCompile:
+         All outputs are up-to-date.
+       Link:
+         All outputs are up-to-date.
+       Manifest:
+         All outputs are up-to-date.
+       FinalizeBuildStatus:
+         Deleting file "Debug\HomeWork2_EX6.unsuccessfulbuild".
+         Touching "Debug\HomeWork2_EX6.lastbuildstate".
+     1>Done Building Project "D:\c++&c\new_diploma\programms\HomeWork2_EX6\HomeWork2_EX6\HomeWork2_EX6.vcxproj" (build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.06
