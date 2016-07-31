@@ -1,0 +1,215 @@
+arrays
+
+1)
+#include "stdio.h"
+void main()
+{
+	float arr1[2][2],
+		arr2[2][2],
+		sum[2][2];
+		int j,i;
+
+	printf("Enter the elements of 1st Matrix\n");
+		for(i=0;i<2;i++)
+		{
+		for(j=0;j<2;j++)
+			{
+				printf("Enter a%d%d:",i+1,j+1);
+				scanf("%f;",&arr1[i][j]);
+				
+			}
+		}	
+		printf("Enter the elements of 2nd Matrix\n");
+		for(i=0;i<2;i++)
+		{
+		for(j=0;j<2;j++)
+			{
+				printf("Enter a%d%d:",i+1,j+1);
+				scanf("%f;",&arr2[i][j]);
+			}
+		}	
+			for(i=0;i<2;i++)
+		{
+		for(j=0;j<2;j++)
+			{
+				sum[i][j]=arr1[i][j]+arr2[i][j];
+			}
+		}	
+		printf("Sum of Matrix \n");
+				for(i=0;i<2;i++)
+		{
+		for(j=0;j<2;j++)
+			{
+				printf("%0.1f\t ",sum[i][j]);
+			}
+		printf("\n");
+		}	
+			
+			
+
+}
+____________________________________________________________________________________________________________
+2)
+#include "stdio.h"
+#define size 200
+
+void main()
+{
+	float arr[size],av=0;
+	int n=0,i=0;
+	printf("Enter the number of data:");
+	scanf("%d",&n);
+		
+		for(i=0;i<n;i++)
+		{
+		printf("%d. Enter number:",i+1);
+		scanf("%f",&arr[i]);
+		printf("\n");
+		}
+		
+		for(i=0;i<n;i++)
+		{
+		av+=arr[i];
+		}
+
+		printf("Average = %f",av/n);
+		
+
+}
+_______________________________________________________________________________________________________________
+3)
+#include "stdio.h"
+#define rows 200
+#define col 200
+
+void main()
+{
+	int arr[rows][col],
+		trs[rows][col];
+	int r,c,i=0,j=0;
+	printf("Enter rows and columns:\n");
+	scanf("%d%d",&r,&c);
+	printf("Enter Elements of Matrix:\n");	
+		for(i=0;i<r;i++)
+		{
+			for(j=0;j<c;j++)
+			{
+			printf("Enter element a%d%d:",i+1,j+1);
+			scanf("%d",&arr[i][j]);
+			printf("\n");
+			}
+		}
+		printf("Entered Matrix:\n");
+		for(i=0;i<r;i++)
+		{
+			for(j=0;j<c;j++)
+			{
+				printf("%d\t",arr[i][j]);
+				trs[j][i]=arr[i][j];
+			}
+			printf("\n");
+		}
+		
+		printf("Its Transpose :\n");
+		for(i=0;i<c;i++)
+		{
+			for(j=0;j<r;j++)
+			{
+				printf("%d\t",trs[i][j]);
+			}
+			printf("\n");
+		}
+		
+		
+
+}
+______________________________________________________________________________________________________________
+5)
+
+#include <stdio.h>
+#define  size 100
+
+int main()
+{
+    int arr[size] ;
+    int i, n ,sea,flag=0;
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+
+        for( i= 0; i< n ; i++)
+        {
+            printf("Enter element%d: ", i+1);
+            scanf("%d", &arr[i]);
+        }
+	
+		printf("Enter the elements to be searched:");
+		scanning: scanf("%d",&sea);
+
+		for( i= 0; i< n ; i++)
+        {
+           if (arr[i]==sea)
+		   {
+			   flag=1;
+				printf("number found at location=%d\n ", i+1);
+				break;
+		   }
+
+        }
+		if(flag==0)
+		{
+			printf("This number is not found \n try again:");
+			goto scanning;
+		
+		}
+  
+}
+_____________________________________________________________________________________________________________
+
+String
+
+#include "stdio.h"
+#define size 100
+
+void main()
+{
+	char arr[size] ,c;
+	int i=0, counter=0;
+	printf("Enter a string:");
+	gets(arr);
+	printf("Enter a character:");
+	scanf("%c",&c);
+	while(arr[i]!=0)
+	{
+		if(arr[i]==c)
+		{
+			counter=counter+1;
+		}
+		i++;
+	}
+	printf("The character %c repeated %d times ", c,counter);
+}
+
+
+_____________________________________________________________________________________________________________
+Question 2
+
+#include "stdio.h"
+#define size 100
+
+void main()
+{
+	char arr[size];
+	int i=0,counter=0,x;
+
+	printf("Enter a string\n");
+	gets(arr);
+	//x=strlen(arr);
+	//printf("%d",x);
+ 	while(arr[i]!=0)
+	{
+		counter++;
+		i++;
+	}
+	printf("the lenght of the string = %d",counter);
+
+}
