@@ -1,0 +1,121 @@
+Example 1
+//prime numbers between an interval
+
+#include "stdio.h"
+int flag;
+int prime(int test)
+{
+	int j;
+	for(j=2;j<test-1;j++)
+	{
+		if(test%j==0)
+		{
+			flag=0;
+			return 0;
+
+		}
+		else 
+			continue;
+	}
+	flag=1;
+	return test;
+	
+	
+}
+void main()
+{
+	int num1,num2,diff,result,i;
+	
+	printf("Enter an interval of numbers from smallest to biggest\n");
+	scanf("%d%d",&num1,&num2);
+	diff=num2-num1;
+	for(i=0;i<diff+1;i++)
+	{
+		
+		result=prime(num2);
+		if (flag==1)
+		{
+		printf("%d\n",result);
+		}
+		num2--;
+	}	
+}
+
+____________________________________________________________________________________________________________
+Example 2
+//factorial using recursion
+
+#include "stdio.h"
+
+int fun(int x)
+{
+	if(x==0)
+	{
+		return 1;
+	}
+	else
+		return(x*fun(x-1));
+}
+
+void main()
+{
+	int num,z;
+	printf("Enter a num:\n");
+	scanf("%d",&num);
+	z=fun(num);
+	printf("%d",z);
+
+}
+
+____________________________________________________________________________________________________________
+Example 3
+
+\\reversing string using recursion
+
+#include <stdio.h>
+
+void reverse()
+{
+	char ch;
+	scanf("%c",&ch);
+	if(ch!='\n')
+		{
+			reverse();
+			printf("%c",ch);
+		}
+}
+int main()
+{
+	char ch;
+	printf("Enter your string\n");
+	reverse();
+	printf("\n");
+}
+_____________________________________________________________________________________________________________
+Example 4
+//power using recursion
+#include "stdio.h"
+
+int power(int num ,int po)
+{
+	if(po==1)
+	{
+		return 1;
+	}
+	else 
+	{
+		return power(num,po-1)*num;
+	}
+
+
+}
+
+
+void main()
+{
+	int x,y,z;
+	printf("Enter a number and its power\n");
+	scanf("%d^%d",&x,&y);
+	z=power(x,y);
+	printf("%d",z);
+}
