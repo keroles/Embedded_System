@@ -1,0 +1,130 @@
+Example 1
+____________________________
+#include "stdio.h"
+#include "conio.h"
+
+struct students
+{
+	char name[50];
+	int roll_num;
+	float marks;
+};
+
+int main()
+{
+	struct students st[100];
+	int count=0;
+	int i;
+
+	do
+	{
+		printf("Enter Info for students:\n");
+		printf("Enter Name:");
+		scanf("%s",st[count].name);
+		printf("Enter roll num:");
+		scanf("%d",&st[count].roll_num);
+		printf("Enter marks:");
+		scanf("%f",&st[count].marks);
+		count++;
+		printf("Enter more students ?! press y otherwise press any key\n ");
+	}
+		while(getch()=='y');
+	printf("Displaying info \n");
+	for(i=0;i<count;i++)
+	{
+		printf("\n name: %s \nroll: %d \nmarks: %f \n",st[i].name , st[i].roll_num , st[i].marks);
+	}
+
+}
+
+_____________________________________________________________________________________________________________
+
+Example 2
+__________
+
+#include "stdio.h"
+
+struct Sdistance 
+{
+	float feet;
+	float inch;
+};
+
+int main ()
+{
+	struct Sdistance x , y , z;
+	printf("Enter information for 1st distance\n");
+	printf("Enter feet: ");
+	scanf("%f",&x.feet);
+	printf("Enter inch: ");
+	scanf("%f",&x.inch);
+
+	printf("Enter information for 2nd distance\n");
+	printf("Enter feet: ");
+	scanf("%f",&y.feet);
+	printf("Enter inch: ");
+	scanf("%f",&y.inch);
+
+	z.feet=x.feet+y.feet;
+	z.inch=x.inch+y.inch;
+
+	printf("Sum of distances= %.2f' %.2f\"",z.feet ,z.inch);
+}
+_____________________________________________________________________________________________________________
+Example 3
+__________
+//adding 2 complex numbers by passing structure to function
+
+#include "stdio.h"
+#include "conio.h"
+
+struct complex
+{
+	double r;
+	double i;
+};
+
+struct complex read_complex (void);
+struct complex add_complex(struct complex x,struct complex y);
+void print_complex (struct complex z);
+
+
+int main()
+{
+	struct complex x ,y ,z;
+	printf("Enter 2 complex numbers in the following form , ex: 1+2i \n");
+	printf("The first number: ");
+	x=read_complex();
+	printf("The second number: ");
+	y=read_complex();
+	z=add_complex(x,y);
+	print_complex(z);
+}
+
+struct complex read_complex (void)
+{
+	struct complex temp_s;
+	scanf("%lf+%lfi",&temp_s.r,&temp_s.i);
+	return temp_s;	
+}
+
+struct complex add_complex(struct complex x,struct complex y)
+{
+	struct complex z;
+	z.r=x.r+y.r;
+	z.i=x.i+y.i;
+	return z;
+}
+
+void print_complex (struct complex z)
+{
+	printf("The sum equals: %.2lf+%.2lfi",z.r,z.i);
+}
+______________________________________________________________________________________________________________
+Example 4 Same as Ex1
+_______________________________________________________________________________________________________________
+
+Example 5
+__________
+size of union =32
+sizeof structure=40
