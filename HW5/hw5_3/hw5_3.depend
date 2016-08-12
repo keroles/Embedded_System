@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1470950056 source:c:\users\abood\desktop\hw5_3\main.c
+	<stdio.h>
+	<stdlib.h>
+
