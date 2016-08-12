@@ -1,0 +1,8 @@
+Address of c: //it will show address of c
+Value of c: 22
+Address of pointer pc: //it will show address of c
+content of pointer pc: 22
+Address of pointer pc: //it will show address of c
+content of pointer pc: 11
+Address of c: //it will show address of c
+Value of c: 2
