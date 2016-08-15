@@ -20,7 +20,7 @@ void main(){
 	Total_Dist.feet = Dist1.feet + Dist2.feet;
 	Total_Dist.inch = Dist1.inch + Dist2.inch;
 	
-	while(Total_Dist.inch > 12){
+	while(Total_Dist.inch >= 12){
 		Total_Dist.inch -=12;
 		Total_Dist.feet +=1;
 	}
