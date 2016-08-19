@@ -1,0 +1,13 @@
+Answer
+
+Address of c://address of c in ram
+Value of c:22
+
+Address of pointer pc://address of c in ram
+Content of pointer pc:22
+
+Address of pointer pc://address of c in ram
+Content of pointer pc:11
+
+Address of c://address of c in ram
+Value of c:2 
