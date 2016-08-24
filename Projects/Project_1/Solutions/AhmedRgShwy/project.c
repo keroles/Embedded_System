@@ -79,12 +79,12 @@ U8 deletePacket( CAN **const mPtr,volatile U8 ID,volatile U8 num );
 
 int main(void)
 {
-	U8 num, idv, check= 1 ;
-	CAN can, *canPtr ;
+	U8  check= 1 ;
 	CAN *IDV_ptr[IDV_NUM]={0} ;
 	CAN **mainPtr= IDV_ptr ;
 
 	check= managePackets( mainPtr );
+	printf("Check is true/false: %d", check);
 	
 	return 0;
 }
