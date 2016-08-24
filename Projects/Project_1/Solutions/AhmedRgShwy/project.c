@@ -228,7 +228,7 @@ U8 managePackets( CAN **const mPtr )
 			case 'N': case 'n':
 			printf("Packets number are %d-packets, and are distributed as: \n",
 			IDV_packetsNum[IDV20_INDEX]+IDV_packetsNum[IDV80_INDEX]+IDV_packetsNum[IDV110_INDEX]);
-			printf("packets for ID-20/Aircondition are: %4d\n", IDV_packetsNum[IDV20_INDEX]);
+			printf("packets for ID-20/Aircondition are: %4d-packets\n", IDV_packetsNum[IDV20_INDEX]);
 			printf("packets for ID-80/Garage are: %10d-packets\n", IDV_packetsNum[IDV80_INDEX]);
 			printf("packets for ID-110/Fridge are: %9d-packets\n", IDV_packetsNum[IDV110_INDEX]);
 			break;
