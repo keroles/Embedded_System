@@ -5,6 +5,17 @@
 	  AUTHOR: Ahmed Ragab Shaarawy.
 	  DATE  : 24/8/2016.
 
+
+
+	PROJECT FEATURES:
+		1- Add packet.
+		2- Delete packet.
+		3- Change packet.
+		4- View all packets.
+		5- View one packet.
+		6- Show all packet number.
+
+
 PROJECT	  =============================
 =======>> = CAN Encapsulation projct: =
 	  =============================
