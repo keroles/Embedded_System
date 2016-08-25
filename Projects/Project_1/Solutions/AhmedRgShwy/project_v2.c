@@ -93,20 +93,10 @@ U8 viewAll( CAN **const mPtr );
 int main(void)
 {
 	U8 num, idv, check= 1 ;
-	CAN can, *canPtr ;
 	CAN *IDV_ptr[IDV_NUM]={0} ;
 	CAN **mainPtr= IDV_ptr ;
 
-	/*PktKeys pkeys;
-	check= addPacket( mainPtr, &pkeys  );
-	check= addPacket( mainPtr, &pkeys  );
-	check= addPacket( mainPtr, &pkeys  );
-	check= viewAll( mainPtr );
-	check= deletePacket( mainPtr );
-	check= viewAll( mainPtr );*/
-
 	check= managePackets( mainPtr );
-	//check= getPacketKey( &pkeys );
 	
 	return 0;
 }
