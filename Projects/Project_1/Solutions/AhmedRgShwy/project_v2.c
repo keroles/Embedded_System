@@ -13,7 +13,7 @@
 		3- Change packet.
 		4- View all packets.
 		5- View one packet.
-		6- Show all packet number.
+		6- Show all packets number.
 
 
 PROJECT	  =============================
