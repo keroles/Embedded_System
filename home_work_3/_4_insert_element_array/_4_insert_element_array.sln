@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "_4_insert_element_array", "_4_insert_element_array\_4_insert_element_array.vcproj", "{F1694717-3D4D-44A0-BD4B-7D6A40598A8D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F1694717-3D4D-44A0-BD4B-7D6A40598A8D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F1694717-3D4D-44A0-BD4B-7D6A40598A8D}.Debug|Win32.Build.0 = Debug|Win32
+		{F1694717-3D4D-44A0-BD4B-7D6A40598A8D}.Release|Win32.ActiveCfg = Release|Win32
+		{F1694717-3D4D-44A0-BD4B-7D6A40598A8D}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
