@@ -12,6 +12,9 @@ and Encapsulate (print) it on the following format
 <X><X|X|X|X><X><X|...|X>
 <ID_type><ID_value><DLC><Data>
 
+the program uses Linked-list for Addresses 
+and each address in the linked list is a header of a Linked-list for the packets of the same address
+
 written by \
 Eng. Ahmed Shaheen
 
