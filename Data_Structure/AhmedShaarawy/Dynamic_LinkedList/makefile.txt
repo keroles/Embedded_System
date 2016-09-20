@@ -1,0 +1,15 @@
+
+# linkedList make
+
+linkedList: main.o linkedList.o
+	gcc -o linkedList *.o -I.
+	
+main.o: main.c
+	gcc -c -o main.o -I.
+	
+linkedList.o: linkedList.c
+	gcc -c -o linkedList.o  -I.
+	
+clean: main.o linkedList.o linkedList
+	rm *.o linkedList
+	
