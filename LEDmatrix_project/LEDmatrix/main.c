@@ -17,10 +17,10 @@ enum Frame_select{
 
              This table defines the  characters in a dot format.
 --------------------------------------------------------------------------------------------------*/
-  static int CHARACTERS[][8]=
+  static unsugned short CHARACTERS[]=     //to be 2 byte only
   {
     {},   // sp
-	{},   //1
+	{},   //1         <second byte>     <First BYTE>
     {},   // 2
     {},   // 3
     {},   // 4
