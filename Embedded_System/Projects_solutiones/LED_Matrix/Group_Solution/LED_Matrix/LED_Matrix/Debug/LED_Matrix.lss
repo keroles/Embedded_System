@@ -1,0 +1,242 @@
+
+LED_Matrix.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000166  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000250  00800060  00000166  000001fa  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000004  008002b0  008002b0  0000044a  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  0000044a  2**0
+                  CONTENTS, READONLY
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  0000047c  2**2
+                  CONTENTS, READONLY
+  5 .debug_aranges 00000038  00000000  00000000  000004b8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_info   000001f3  00000000  00000000  000004f0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 0000013a  00000000  00000000  000006e3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_line   000001a1  00000000  00000000  0000081d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_frame  00000064  00000000  00000000  000009c0  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_str    00000176  00000000  00000000  00000a24  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_loc    0000019e  00000000  00000000  00000b9a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_ranges 00000028  00000000  00000000  00000d38  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   8:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  10:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  14:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  18:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  1c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  20:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  24:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  28:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  2c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  30:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  34:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  38:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  3c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  40:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  44:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  48:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  4c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  50:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_copy_data>:
+  60:	12 e0       	ldi	r17, 0x02	; 2
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	e6 e6       	ldi	r30, 0x66	; 102
+  68:	f1 e0       	ldi	r31, 0x01	; 1
+  6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
+  6c:	05 90       	lpm	r0, Z+
+  6e:	0d 92       	st	X+, r0
+  70:	a0 3b       	cpi	r26, 0xB0	; 176
+  72:	b1 07       	cpc	r27, r17
+  74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
+
+00000076 <__do_clear_bss>:
+  76:	22 e0       	ldi	r18, 0x02	; 2
+  78:	a0 eb       	ldi	r26, 0xB0	; 176
+  7a:	b2 e0       	ldi	r27, 0x02	; 2
+  7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
+
+0000007e <.do_clear_bss_loop>:
+  7e:	1d 92       	st	X+, r1
+
+00000080 <.do_clear_bss_start>:
+  80:	a4 3b       	cpi	r26, 0xB4	; 180
+  82:	b2 07       	cpc	r27, r18
+  84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
+  86:	0e 94 a5 00 	call	0x14a	; 0x14a <main>
+  8a:	0c 94 b1 00 	jmp	0x162	; 0x162 <_exit>
+
+0000008e <__bad_interrupt>:
+  8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000092 <Display_Frame0>:
+
+void Display_Frame0(char ch){
+	
+	static int Row = 0; //Frame Column
+	int index = ch - 48; //index to choose the character from global array gCharacter
+	char Col = gCharacter[index][Row]; //Frame Row
+  92:	40 91 b2 02 	lds	r20, 0x02B2	; 0x8002b2 <Row.1507>
+  96:	50 91 b3 02 	lds	r21, 0x02B3	; 0x8002b3 <Row.1507+0x1>
+}
+
+void Display_Frame0(char ch){
+	
+	static int Row = 0; //Frame Column
+	int index = ch - 48; //index to choose the character from global array gCharacter
+  9a:	e8 2f       	mov	r30, r24
+  9c:	f0 e0       	ldi	r31, 0x00	; 0
+	char Col = gCharacter[index][Row]; //Frame Row
+  9e:	f0 97       	sbiw	r30, 0x30	; 48
+  a0:	ee 0f       	add	r30, r30
+  a2:	ff 1f       	adc	r31, r31
+  a4:	ee 0f       	add	r30, r30
+  a6:	ff 1f       	adc	r31, r31
+  a8:	ee 0f       	add	r30, r30
+  aa:	ff 1f       	adc	r31, r31
+  ac:	e4 0f       	add	r30, r20
+  ae:	f5 1f       	adc	r31, r21
+  b0:	e0 5a       	subi	r30, 0xA0	; 160
+  b2:	ff 4f       	sbci	r31, 0xFF	; 255
+  b4:	80 81       	ld	r24, Z
+	PORTA = 1<<Row;
+  b6:	21 e0       	ldi	r18, 0x01	; 1
+  b8:	30 e0       	ldi	r19, 0x00	; 0
+  ba:	02 c0       	rjmp	.+4      	; 0xc0 <Display_Frame0+0x2e>
+  bc:	22 0f       	add	r18, r18
+  be:	33 1f       	adc	r19, r19
+  c0:	4a 95       	dec	r20
+  c2:	e2 f7       	brpl	.-8      	; 0xbc <Display_Frame0+0x2a>
+  c4:	2b bb       	out	0x1b, r18	; 27
+	PORTB = ~Col;
+  c6:	80 95       	com	r24
+  c8:	88 bb       	out	0x18, r24	; 24
+	if (Row == 7) Row=0;
+  ca:	80 91 b2 02 	lds	r24, 0x02B2	; 0x8002b2 <Row.1507>
+  ce:	90 91 b3 02 	lds	r25, 0x02B3	; 0x8002b3 <Row.1507+0x1>
+  d2:	87 30       	cpi	r24, 0x07	; 7
+  d4:	91 05       	cpc	r25, r1
+  d6:	29 f4       	brne	.+10     	; 0xe2 <Display_Frame0+0x50>
+  d8:	10 92 b3 02 	sts	0x02B3, r1	; 0x8002b3 <Row.1507+0x1>
+  dc:	10 92 b2 02 	sts	0x02B2, r1	; 0x8002b2 <Row.1507>
+  e0:	08 95       	ret
+	else Row++;
+  e2:	01 96       	adiw	r24, 0x01	; 1
+  e4:	90 93 b3 02 	sts	0x02B3, r25	; 0x8002b3 <Row.1507+0x1>
+  e8:	80 93 b2 02 	sts	0x02B2, r24	; 0x8002b2 <Row.1507>
+  ec:	08 95       	ret
+
+000000ee <Display_Frame1>:
+
+void Display_Frame1(char ch){
+	
+	static int Row = 0; //Frame Column
+	int index = ch - 48; //index to choose the character from global array gCharacter
+	char Col = gCharacter[index][Row]; //Frame Row
+  ee:	40 91 b0 02 	lds	r20, 0x02B0	; 0x8002b0 <__data_end>
+  f2:	50 91 b1 02 	lds	r21, 0x02B1	; 0x8002b1 <__data_end+0x1>
+
+
+void Display_Frame1(char ch){
+	
+	static int Row = 0; //Frame Column
+	int index = ch - 48; //index to choose the character from global array gCharacter
+  f6:	e8 2f       	mov	r30, r24
+  f8:	f0 e0       	ldi	r31, 0x00	; 0
+	char Col = gCharacter[index][Row]; //Frame Row
+  fa:	f0 97       	sbiw	r30, 0x30	; 48
+  fc:	ee 0f       	add	r30, r30
+  fe:	ff 1f       	adc	r31, r31
+ 100:	ee 0f       	add	r30, r30
+ 102:	ff 1f       	adc	r31, r31
+ 104:	ee 0f       	add	r30, r30
+ 106:	ff 1f       	adc	r31, r31
+ 108:	e4 0f       	add	r30, r20
+ 10a:	f5 1f       	adc	r31, r21
+ 10c:	e0 5a       	subi	r30, 0xA0	; 160
+ 10e:	ff 4f       	sbci	r31, 0xFF	; 255
+ 110:	80 81       	ld	r24, Z
+	PORTC = 1<<Row;
+ 112:	21 e0       	ldi	r18, 0x01	; 1
+ 114:	30 e0       	ldi	r19, 0x00	; 0
+ 116:	02 c0       	rjmp	.+4      	; 0x11c <Display_Frame1+0x2e>
+ 118:	22 0f       	add	r18, r18
+ 11a:	33 1f       	adc	r19, r19
+ 11c:	4a 95       	dec	r20
+ 11e:	e2 f7       	brpl	.-8      	; 0x118 <Display_Frame1+0x2a>
+ 120:	25 bb       	out	0x15, r18	; 21
+	PORTD = ~Col;
+ 122:	80 95       	com	r24
+ 124:	82 bb       	out	0x12, r24	; 18
+	if (Row == 7) Row=0;
+ 126:	80 91 b0 02 	lds	r24, 0x02B0	; 0x8002b0 <__data_end>
+ 12a:	90 91 b1 02 	lds	r25, 0x02B1	; 0x8002b1 <__data_end+0x1>
+ 12e:	87 30       	cpi	r24, 0x07	; 7
+ 130:	91 05       	cpc	r25, r1
+ 132:	29 f4       	brne	.+10     	; 0x13e <Display_Frame1+0x50>
+ 134:	10 92 b1 02 	sts	0x02B1, r1	; 0x8002b1 <__data_end+0x1>
+ 138:	10 92 b0 02 	sts	0x02B0, r1	; 0x8002b0 <__data_end>
+ 13c:	08 95       	ret
+	else Row++;
+ 13e:	01 96       	adiw	r24, 0x01	; 1
+ 140:	90 93 b1 02 	sts	0x02B1, r25	; 0x8002b1 <__data_end+0x1>
+ 144:	80 93 b0 02 	sts	0x02B0, r24	; 0x8002b0 <__data_end>
+ 148:	08 95       	ret
+
+0000014a <main>:
+	
+    char ch1 = 'A';
+	char ch2 = 'B';
+    //int Frame_selection=0;
+	//port initialization
+	DDRA = 0xFF;
+ 14a:	8f ef       	ldi	r24, 0xFF	; 255
+ 14c:	8a bb       	out	0x1a, r24	; 26
+	DDRB = 0xFF;
+ 14e:	87 bb       	out	0x17, r24	; 23
+	DDRC = 0xFF;
+ 150:	84 bb       	out	0x14, r24	; 20
+	DDRD = 0xFF;
+ 152:	81 bb       	out	0x11, r24	; 17
+	
+    while(1){
+		Display_Frame0(ch1);
+ 154:	81 e4       	ldi	r24, 0x41	; 65
+ 156:	0e 94 49 00 	call	0x92	; 0x92 <Display_Frame0>
+		Display_Frame1(ch2);
+ 15a:	82 e4       	ldi	r24, 0x42	; 66
+ 15c:	0e 94 77 00 	call	0xee	; 0xee <Display_Frame1>
+    }
+ 160:	f9 cf       	rjmp	.-14     	; 0x154 <main+0xa>
+
+00000162 <_exit>:
+ 162:	f8 94       	cli
+
+00000164 <__stop_program>:
+ 164:	ff cf       	rjmp	.-2      	; 0x164 <__stop_program>
