@@ -5,29 +5,29 @@ Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
   0 .text         00000166  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000250  00800060  00000166  000001fa  2**0
+  1 .data         00000248  00800060  00000166  000001fa  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          00000004  008002b0  008002b0  0000044a  2**0
+  2 .bss          00000004  008002a8  008002a8  00000442  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  0000044a  2**0
+  3 .comment      00000030  00000000  00000000  00000442  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  0000047c  2**2
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000474  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000038  00000000  00000000  000004b8  2**0
+  5 .debug_aranges 00000038  00000000  00000000  000004b0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   000001f3  00000000  00000000  000004f0  2**0
+  6 .debug_info   000001f3  00000000  00000000  000004e8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 0000013a  00000000  00000000  000006e3  2**0
+  7 .debug_abbrev 0000013a  00000000  00000000  000006db  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   000001a1  00000000  00000000  0000081d  2**0
+  8 .debug_line   000001a1  00000000  00000000  00000815  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000064  00000000  00000000  000009c0  2**2
+  9 .debug_frame  00000064  00000000  00000000  000009b8  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000176  00000000  00000000  00000a24  2**0
+ 10 .debug_str    000001bc  00000000  00000000  00000a1c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    0000019e  00000000  00000000  00000b9a  2**0
+ 11 .debug_loc    0000019e  00000000  00000000  00000bd8  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000028  00000000  00000000  00000d38  2**0
+ 12 .debug_ranges 00000028  00000000  00000000  00000d76  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -72,13 +72,13 @@ Disassembly of section .text:
   6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
   6c:	05 90       	lpm	r0, Z+
   6e:	0d 92       	st	X+, r0
-  70:	a0 3b       	cpi	r26, 0xB0	; 176
+  70:	a8 3a       	cpi	r26, 0xA8	; 168
   72:	b1 07       	cpc	r27, r17
   74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
 
 00000076 <__do_clear_bss>:
   76:	22 e0       	ldi	r18, 0x02	; 2
-  78:	a0 eb       	ldi	r26, 0xB0	; 176
+  78:	a8 ea       	ldi	r26, 0xA8	; 168
   7a:	b2 e0       	ldi	r27, 0x02	; 2
   7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
 
@@ -86,7 +86,7 @@ Disassembly of section .text:
   7e:	1d 92       	st	X+, r1
 
 00000080 <.do_clear_bss_start>:
-  80:	a4 3b       	cpi	r26, 0xB4	; 180
+  80:	ac 3a       	cpi	r26, 0xAC	; 172
   82:	b2 07       	cpc	r27, r18
   84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
   86:	0e 94 a5 00 	call	0x14a	; 0x14a <main>
@@ -102,8 +102,8 @@ void Display_Frame0(char ch){
 	static int Row = 0; //Frame Column
 	int index = ch - 48; //index to choose the character from global array gCharacter
 	char Col = gCharacter[index][Row]; //Frame Row
-  92:	40 91 b2 02 	lds	r20, 0x02B2	; 0x8002b2 <Row.1507>
-  96:	50 91 b3 02 	lds	r21, 0x02B3	; 0x8002b3 <Row.1507+0x1>
+  92:	40 91 aa 02 	lds	r20, 0x02AA	; 0x8002aa <Row.1507>
+  96:	50 91 ab 02 	lds	r21, 0x02AB	; 0x8002ab <Row.1507+0x1>
 }
 
 void Display_Frame0(char ch){
@@ -138,18 +138,18 @@ void Display_Frame0(char ch){
   c6:	80 95       	com	r24
   c8:	88 bb       	out	0x18, r24	; 24
 	if (Row == 7) Row=0;
-  ca:	80 91 b2 02 	lds	r24, 0x02B2	; 0x8002b2 <Row.1507>
-  ce:	90 91 b3 02 	lds	r25, 0x02B3	; 0x8002b3 <Row.1507+0x1>
+  ca:	80 91 aa 02 	lds	r24, 0x02AA	; 0x8002aa <Row.1507>
+  ce:	90 91 ab 02 	lds	r25, 0x02AB	; 0x8002ab <Row.1507+0x1>
   d2:	87 30       	cpi	r24, 0x07	; 7
   d4:	91 05       	cpc	r25, r1
   d6:	29 f4       	brne	.+10     	; 0xe2 <Display_Frame0+0x50>
-  d8:	10 92 b3 02 	sts	0x02B3, r1	; 0x8002b3 <Row.1507+0x1>
-  dc:	10 92 b2 02 	sts	0x02B2, r1	; 0x8002b2 <Row.1507>
+  d8:	10 92 ab 02 	sts	0x02AB, r1	; 0x8002ab <Row.1507+0x1>
+  dc:	10 92 aa 02 	sts	0x02AA, r1	; 0x8002aa <Row.1507>
   e0:	08 95       	ret
 	else Row++;
   e2:	01 96       	adiw	r24, 0x01	; 1
-  e4:	90 93 b3 02 	sts	0x02B3, r25	; 0x8002b3 <Row.1507+0x1>
-  e8:	80 93 b2 02 	sts	0x02B2, r24	; 0x8002b2 <Row.1507>
+  e4:	90 93 ab 02 	sts	0x02AB, r25	; 0x8002ab <Row.1507+0x1>
+  e8:	80 93 aa 02 	sts	0x02AA, r24	; 0x8002aa <Row.1507>
   ec:	08 95       	ret
 
 000000ee <Display_Frame1>:
@@ -159,8 +159,8 @@ void Display_Frame1(char ch){
 	static int Row = 0; //Frame Column
 	int index = ch - 48; //index to choose the character from global array gCharacter
 	char Col = gCharacter[index][Row]; //Frame Row
-  ee:	40 91 b0 02 	lds	r20, 0x02B0	; 0x8002b0 <__data_end>
-  f2:	50 91 b1 02 	lds	r21, 0x02B1	; 0x8002b1 <__data_end+0x1>
+  ee:	40 91 a8 02 	lds	r20, 0x02A8	; 0x8002a8 <__data_end>
+  f2:	50 91 a9 02 	lds	r21, 0x02A9	; 0x8002a9 <__data_end+0x1>
 
 
 void Display_Frame1(char ch){
@@ -195,24 +195,24 @@ void Display_Frame1(char ch){
  122:	80 95       	com	r24
  124:	82 bb       	out	0x12, r24	; 18
 	if (Row == 7) Row=0;
- 126:	80 91 b0 02 	lds	r24, 0x02B0	; 0x8002b0 <__data_end>
- 12a:	90 91 b1 02 	lds	r25, 0x02B1	; 0x8002b1 <__data_end+0x1>
+ 126:	80 91 a8 02 	lds	r24, 0x02A8	; 0x8002a8 <__data_end>
+ 12a:	90 91 a9 02 	lds	r25, 0x02A9	; 0x8002a9 <__data_end+0x1>
  12e:	87 30       	cpi	r24, 0x07	; 7
  130:	91 05       	cpc	r25, r1
  132:	29 f4       	brne	.+10     	; 0x13e <Display_Frame1+0x50>
- 134:	10 92 b1 02 	sts	0x02B1, r1	; 0x8002b1 <__data_end+0x1>
- 138:	10 92 b0 02 	sts	0x02B0, r1	; 0x8002b0 <__data_end>
+ 134:	10 92 a9 02 	sts	0x02A9, r1	; 0x8002a9 <__data_end+0x1>
+ 138:	10 92 a8 02 	sts	0x02A8, r1	; 0x8002a8 <__data_end>
  13c:	08 95       	ret
 	else Row++;
  13e:	01 96       	adiw	r24, 0x01	; 1
- 140:	90 93 b1 02 	sts	0x02B1, r25	; 0x8002b1 <__data_end+0x1>
- 144:	80 93 b0 02 	sts	0x02B0, r24	; 0x8002b0 <__data_end>
+ 140:	90 93 a9 02 	sts	0x02A9, r25	; 0x8002a9 <__data_end+0x1>
+ 144:	80 93 a8 02 	sts	0x02A8, r24	; 0x8002a8 <__data_end>
  148:	08 95       	ret
 
 0000014a <main>:
 	
-    char ch1 = 'A';
-	char ch2 = 'B';
+    char ch1 = '0';
+	char ch2 = '1';
     //int Frame_selection=0;
 	//port initialization
 	DDRA = 0xFF;
@@ -227,10 +227,10 @@ void Display_Frame1(char ch){
 	
     while(1){
 		Display_Frame0(ch1);
- 154:	81 e4       	ldi	r24, 0x41	; 65
+ 154:	80 e3       	ldi	r24, 0x30	; 48
  156:	0e 94 49 00 	call	0x92	; 0x92 <Display_Frame0>
 		Display_Frame1(ch2);
- 15a:	82 e4       	ldi	r24, 0x42	; 66
+ 15a:	81 e3       	ldi	r24, 0x31	; 49
  15c:	0e 94 77 00 	call	0xee	; 0xee <Display_Frame1>
     }
  160:	f9 cf       	rjmp	.-14     	; 0x154 <main+0xa>
