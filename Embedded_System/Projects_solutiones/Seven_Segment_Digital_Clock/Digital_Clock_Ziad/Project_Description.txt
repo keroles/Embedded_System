@@ -1,0 +1,12 @@
+-----------------A 24 hour digital clock-------------------
+
+Advantages
+
+"Code size is too small"
+
+Disadvantages
+
+1-Used all general purpose input output
+2-Large number of components and connectors.
+3-I have to use timer interrupt to be more efficiant.
+4-The processor is always busy with the clock function.
