@@ -18,37 +18,44 @@ int main(void)
 	//Initializing Ports
 	DDRC = 0xFF;
 	DDRB = 0xFF;
+	float wait = 2500;
 
     while (1) 
     {
-		for(hr=1;hr<13;hr++){ //for loop to change hours
+		for(hr=0;hr<12;hr++){ //for loop to change hours
 			for(min=0;min<60;min++){ //for loop to change minutes
 				for(sec=0;sec<60;sec++){ //for to change seconds
-					for(i=0;i<30;i++){ //for loop to multiplex and render with frequency of 30 Hz (the frequency that the eye can see )
+					for(i=0;i<60;i++){ //for loop to multiplex and render with frequency of 30 Hz (the frequency that the eye can see )
 						
 						PORTC = ~1;
 						PORTB = gEncoder[sec%10];
-						_delay_ms(5);
+						//_delay_ms(5);
+						_delay_us(wait);
 						
 						PORTC = ~2;
 						PORTB = gEncoder[sec/10];
-						_delay_ms(5);
+						//_delay_ms(5);
+						_delay_us(wait);
 						
 						PORTC = ~4;
 						PORTB = gEncoder[min%10];
-						_delay_ms(5);
+						//_delay_ms(5);
+						_delay_us(wait);
 						
 						PORTC = ~8;
 						PORTB = gEncoder[min/10];
-						_delay_ms(5);
+						//_delay_ms(5);
+						_delay_us(wait);
 						
 						PORTC = ~16;
 						PORTB = gEncoder[hr%10];
-						_delay_ms(5);
+						//_delay_ms(5);
+						_delay_us(wait);
 						
 						PORTC = ~32;
 						PORTB = gEncoder[hr/10];
-						_delay_ms(5);
+						//_delay_ms(5);
+						_delay_us(wait);
 					}
 				}
 			}

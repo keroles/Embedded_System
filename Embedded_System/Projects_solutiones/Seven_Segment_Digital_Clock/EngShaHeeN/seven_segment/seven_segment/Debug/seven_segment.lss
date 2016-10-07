@@ -3,29 +3,29 @@ seven_segment.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         0000025a  00000000  00000000  00000074  2**1
+  0 .text         0000025e  00000000  00000000  00000074  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000014  00800060  0000025a  000002ce  2**0
+  1 .data         00000014  00800060  0000025e  000002d2  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .comment      00000030  00000000  00000000  000002e2  2**0
+  2 .comment      00000030  00000000  00000000  000002e6  2**0
                   CONTENTS, READONLY
-  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000314  2**2
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00000318  2**2
                   CONTENTS, READONLY
-  4 .debug_aranges 00000020  00000000  00000000  00000350  2**0
+  4 .debug_aranges 00000020  00000000  00000000  00000354  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_info   0000028b  00000000  00000000  00000370  2**0
+  5 .debug_info   000002a5  00000000  00000000  00000374  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_abbrev 000000fe  00000000  00000000  000005fb  2**0
+  6 .debug_abbrev 0000010d  00000000  00000000  00000619  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_line   0000029d  00000000  00000000  000006f9  2**0
+  7 .debug_line   000002a3  00000000  00000000  00000726  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_frame  00000034  00000000  00000000  00000998  2**2
+  8 .debug_frame  00000034  00000000  00000000  000009cc  2**2
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_str    0000019b  00000000  00000000  000009cc  2**0
+  9 .debug_str    000001f1  00000000  00000000  00000a00  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_loc    0000052f  00000000  00000000  00000b67  2**0
+ 10 .debug_loc    000004f7  00000000  00000000  00000bf1  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_ranges 00000010  00000000  00000000  00001096  2**0
+ 11 .debug_ranges 00000010  00000000  00000000  000010e8  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -65,7 +65,7 @@ Disassembly of section .text:
   60:	10 e0       	ldi	r17, 0x00	; 0
   62:	a0 e6       	ldi	r26, 0x60	; 96
   64:	b0 e0       	ldi	r27, 0x00	; 0
-  66:	ea e5       	ldi	r30, 0x5A	; 90
+  66:	ee e5       	ldi	r30, 0x5E	; 94
   68:	f2 e0       	ldi	r31, 0x02	; 2
   6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
   6c:	05 90       	lpm	r0, Z+
@@ -74,7 +74,7 @@ Disassembly of section .text:
   72:	b1 07       	cpc	r27, r17
   74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
   76:	0e 94 41 00 	call	0x82	; 0x82 <main>
-  7a:	0c 94 2b 01 	jmp	0x256	; 0x256 <_exit>
+  7a:	0c 94 2d 01 	jmp	0x25a	; 0x25a <_exit>
 
 0000007e <__bad_interrupt>:
   7e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -88,401 +88,425 @@ int main(void)
 {	
   82:	cf 93       	push	r28
   84:	df 93       	push	r29
-  86:	00 d0       	rcall	.+0      	; 0x88 <main+0x6>
-  88:	00 d0       	rcall	.+0      	; 0x8a <main+0x8>
-  8a:	00 d0       	rcall	.+0      	; 0x8c <main+0xa>
-  8c:	cd b7       	in	r28, 0x3d	; 61
-  8e:	de b7       	in	r29, 0x3e	; 62
+  86:	cd b7       	in	r28, 0x3d	; 61
+  88:	de b7       	in	r29, 0x3e	; 62
+  8a:	28 97       	sbiw	r28, 0x08	; 8
+  8c:	0f b6       	in	r0, 0x3f	; 63
+  8e:	f8 94       	cli
+  90:	de bf       	out	0x3e, r29	; 62
+  92:	0f be       	out	0x3f, r0	; 63
+  94:	cd bf       	out	0x3d, r28	; 61
 	int hr=0,min=0,sec=0,i;
 	//Initializing Ports
 	DDRC = 0xFF;
-  90:	8f ef       	ldi	r24, 0xFF	; 255
-  92:	84 bb       	out	0x14, r24	; 20
+  96:	8f ef       	ldi	r24, 0xFF	; 255
+  98:	84 bb       	out	0x14, r24	; 20
 	DDRB = 0xFF;
-  94:	87 bb       	out	0x17, r24	; 23
-		for(hr=1;hr<13;hr++){ //for loop to change hours
-			for(min=0;min<60;min++){ //for loop to change minutes
-				for(sec=0;sec<60;sec++){ //for to change seconds
-					for(i=0;i<30;i++){ //for loop to multiplex and render with frequency of 30 Hz
-						
-						PORTC = ~1;
-  96:	4e ef       	ldi	r20, 0xFE	; 254
-						PORTB = gEncoder[sec%10];
-						_delay_ms(5);
-						
-						PORTC = ~2;
-  98:	0f 2e       	mov	r0, r31
-  9a:	fd ef       	ldi	r31, 0xFD	; 253
-  9c:	7f 2e       	mov	r7, r31
-  9e:	f0 2d       	mov	r31, r0
-						PORTB = gEncoder[sec/10];
-						_delay_ms(5);
-						
-						PORTC = ~4;
-  a0:	0f 2e       	mov	r0, r31
-  a2:	fb ef       	ldi	r31, 0xFB	; 251
-  a4:	6f 2e       	mov	r6, r31
-  a6:	f0 2d       	mov	r31, r0
-						PORTB = gEncoder[min%10];
-						_delay_ms(5);
-						
-						PORTC = ~8;
-  a8:	0f 2e       	mov	r0, r31
-  aa:	f7 ef       	ldi	r31, 0xF7	; 247
-  ac:	5f 2e       	mov	r5, r31
-  ae:	f0 2d       	mov	r31, r0
-						PORTB = gEncoder[min/10];
-  b0:	21 2c       	mov	r2, r1
-  b2:	1b 82       	std	Y+3, r1	; 0x03
-  b4:	2c 82       	std	Y+4, r2	; 0x04
-						PORTC = ~1;
-						PORTB = gEncoder[sec%10];
-						_delay_ms(5);
-						
-						PORTC = ~2;
-						PORTB = gEncoder[sec/10];
-  b6:	0f 2e       	mov	r0, r31
-  b8:	fe e1       	ldi	r31, 0x1E	; 30
-  ba:	4f 2e       	mov	r4, r31
-  bc:	f0 2d       	mov	r31, r0
-  be:	31 2c       	mov	r3, r1
-	DDRC = 0xFF;
-	DDRB = 0xFF;
+  9a:	87 bb       	out	0x17, r24	; 23
+	float wait = 2500;
 
     while (1) 
     {
-		for(hr=1;hr<13;hr++){ //for loop to change hours
-  c0:	88 24       	eor	r8, r8
-  c2:	83 94       	inc	r8
-  c4:	91 2c       	mov	r9, r1
+		for(hr=0;hr<12;hr++){ //for loop to change hours
+  9c:	41 2c       	mov	r4, r1
+						PORTB = gEncoder[min/10];
+						//_delay_ms(5);
+						_delay_us(wait);
+						
+						PORTC = ~16;
+						PORTB = gEncoder[hr%10];
+  9e:	0f 2e       	mov	r0, r31
+  a0:	fa e0       	ldi	r31, 0x0A	; 10
+  a2:	2f 2e       	mov	r2, r31
+  a4:	31 2c       	mov	r3, r1
+  a6:	f0 2d       	mov	r31, r0
+		for(hr=0;hr<12;hr++){ //for loop to change hours
+			for(min=0;min<60;min++){ //for loop to change minutes
+				for(sec=0;sec<60;sec++){ //for to change seconds
+					for(i=0;i<60;i++){ //for loop to multiplex and render with frequency of 30 Hz (the frequency that the eye can see )
+						
+						PORTC = ~1;
+  a8:	0f 2e       	mov	r0, r31
+  aa:	fe ef       	ldi	r31, 0xFE	; 254
+  ac:	9f 2e       	mov	r9, r31
+  ae:	f0 2d       	mov	r31, r0
+						PORTB = gEncoder[sec%10];
+						//_delay_ms(5);
+						_delay_us(wait);
+						
+						PORTC = ~2;
+  b0:	4d ef       	ldi	r20, 0xFD	; 253
+						PORTB = gEncoder[sec/10];
+						//_delay_ms(5);
+						_delay_us(wait);
+						
+						PORTC = ~4;
+  b2:	0f 2e       	mov	r0, r31
+  b4:	fb ef       	ldi	r31, 0xFB	; 251
+  b6:	7f 2e       	mov	r7, r31
+  b8:	f0 2d       	mov	r31, r0
+						PORTB = gEncoder[min%10];
+						//_delay_ms(5);
+						_delay_us(wait);
+						
+						PORTC = ~8;
+  ba:	0f 2e       	mov	r0, r31
+  bc:	f7 ef       	ldi	r31, 0xF7	; 247
+  be:	6f 2e       	mov	r6, r31
+  c0:	f0 2d       	mov	r31, r0
+						PORTB = gEncoder[min/10];
+						//_delay_ms(5);
+						_delay_us(wait);
+						
+						PORTC = ~16;
+  c2:	0f 2e       	mov	r0, r31
+  c4:	ff ee       	ldi	r31, 0xEF	; 239
+  c6:	5f 2e       	mov	r5, r31
+  c8:	f0 2d       	mov	r31, r0
+						PORTB = gEncoder[min%10];
+						//_delay_ms(5);
+						_delay_us(wait);
 						
 						PORTC = ~8;
 						PORTB = gEncoder[min/10];
-						_delay_ms(5);
-						
+  ca:	4b 82       	std	Y+3, r4	; 0x03
+  cc:	1c 82       	std	Y+4, r1	; 0x04
+  ce:	4d 82       	std	Y+5, r4	; 0x05
+  d0:	20 e0       	ldi	r18, 0x00	; 0
+  d2:	2e 83       	std	Y+6, r18	; 0x06
+	DDRB = 0xFF;
+	float wait = 2500;
+
+    while (1) 
+    {
+		for(hr=0;hr<12;hr++){ //for loop to change hours
+  d4:	49 82       	std	Y+1, r4	; 0x01
+  d6:	1a 82       	std	Y+2, r1	; 0x02
 						PORTC = ~16;
-  c6:	0f 2e       	mov	r0, r31
-  c8:	ff ee       	ldi	r31, 0xEF	; 239
-  ca:	df 2e       	mov	r13, r31
-  cc:	f0 2d       	mov	r31, r0
 						PORTB = gEncoder[hr%10];
-						_delay_ms(5);
+						//_delay_ms(5);
+						_delay_us(wait);
 						
 						PORTC = ~32;
-  ce:	0f 2e       	mov	r0, r31
-  d0:	ff ed       	ldi	r31, 0xDF	; 223
-  d2:	cf 2e       	mov	r12, r31
-  d4:	f0 2d       	mov	r31, r0
-  d6:	83 c0       	rjmp	.+262    	; 0x1de <main+0x15c>
-		for(hr=1;hr<13;hr++){ //for loop to change hours
+  d8:	0f 2e       	mov	r0, r31
+  da:	ff ed       	ldi	r31, 0xDF	; 223
+  dc:	8f 2e       	mov	r8, r31
+  de:	f0 2d       	mov	r31, r0
+  e0:	80 c0       	rjmp	.+256    	; 0x1e2 <main+0x160>
+		for(hr=0;hr<12;hr++){ //for loop to change hours
 			for(min=0;min<60;min++){ //for loop to change minutes
 				for(sec=0;sec<60;sec++){ //for to change seconds
-					for(i=0;i<30;i++){ //for loop to multiplex and render with frequency of 30 Hz
+					for(i=0;i<60;i++){ //for loop to multiplex and render with frequency of 30 Hz (the frequency that the eye can see )
 						
 						PORTC = ~1;
-  d8:	45 bb       	out	0x15, r20	; 21
+  e2:	95 ba       	out	0x15, r9	; 21
 						PORTB = gEncoder[sec%10];
-  da:	5c 91       	ld	r21, X
-  dc:	58 bb       	out	0x18, r21	; 24
+  e4:	5c 91       	ld	r21, X
+  e6:	58 bb       	out	0x18, r21	; 24
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
 	#endif
 
 	__builtin_avr_delay_cycles(__ticks_dc);
-  de:	ef e0       	ldi	r30, 0x0F	; 15
-  e0:	f7 e2       	ldi	r31, 0x27	; 39
-  e2:	31 97       	sbiw	r30, 0x01	; 1
-  e4:	f1 f7       	brne	.-4      	; 0xe2 <main+0x60>
-  e6:	00 c0       	rjmp	.+0      	; 0xe8 <main+0x66>
-  e8:	00 00       	nop
-						_delay_ms(5);
+  e8:	e7 e8       	ldi	r30, 0x87	; 135
+  ea:	f3 e1       	ldi	r31, 0x13	; 19
+  ec:	31 97       	sbiw	r30, 0x01	; 1
+  ee:	f1 f7       	brne	.-4      	; 0xec <main+0x6a>
+  f0:	00 c0       	rjmp	.+0      	; 0xf2 <main+0x70>
+  f2:	00 00       	nop
+						//_delay_ms(5);
+						_delay_us(wait);
 						
 						PORTC = ~2;
-  ea:	75 ba       	out	0x15, r7	; 21
+  f4:	45 bb       	out	0x15, r20	; 21
 						PORTB = gEncoder[sec/10];
-  ec:	fb 01       	movw	r30, r22
-  ee:	50 81       	ld	r21, Z
-  f0:	58 bb       	out	0x18, r21	; 24
-  f2:	ef e0       	ldi	r30, 0x0F	; 15
-  f4:	f7 e2       	ldi	r31, 0x27	; 39
-  f6:	31 97       	sbiw	r30, 0x01	; 1
-  f8:	f1 f7       	brne	.-4      	; 0xf6 <main+0x74>
-  fa:	00 c0       	rjmp	.+0      	; 0xfc <main+0x7a>
-  fc:	00 00       	nop
-						_delay_ms(5);
+  f6:	fb 01       	movw	r30, r22
+  f8:	50 81       	ld	r21, Z
+  fa:	58 bb       	out	0x18, r21	; 24
+  fc:	e7 e8       	ldi	r30, 0x87	; 135
+  fe:	f3 e1       	ldi	r31, 0x13	; 19
+ 100:	31 97       	sbiw	r30, 0x01	; 1
+ 102:	f1 f7       	brne	.-4      	; 0x100 <main+0x7e>
+ 104:	00 c0       	rjmp	.+0      	; 0x106 <main+0x84>
+ 106:	00 00       	nop
+						//_delay_ms(5);
+						_delay_us(wait);
 						
 						PORTC = ~4;
-  fe:	65 ba       	out	0x15, r6	; 21
+ 108:	75 ba       	out	0x15, r7	; 21
 						PORTB = gEncoder[min%10];
- 100:	ed 81       	ldd	r30, Y+5	; 0x05
- 102:	fe 81       	ldd	r31, Y+6	; 0x06
- 104:	50 81       	ld	r21, Z
- 106:	58 bb       	out	0x18, r21	; 24
- 108:	ef e0       	ldi	r30, 0x0F	; 15
- 10a:	f7 e2       	ldi	r31, 0x27	; 39
- 10c:	31 97       	sbiw	r30, 0x01	; 1
- 10e:	f1 f7       	brne	.-4      	; 0x10c <main+0x8a>
- 110:	00 c0       	rjmp	.+0      	; 0x112 <main+0x90>
- 112:	00 00       	nop
-						_delay_ms(5);
+ 10a:	ef 81       	ldd	r30, Y+7	; 0x07
+ 10c:	f8 85       	ldd	r31, Y+8	; 0x08
+ 10e:	50 81       	ld	r21, Z
+ 110:	58 bb       	out	0x18, r21	; 24
+ 112:	e7 e8       	ldi	r30, 0x87	; 135
+ 114:	f3 e1       	ldi	r31, 0x13	; 19
+ 116:	31 97       	sbiw	r30, 0x01	; 1
+ 118:	f1 f7       	brne	.-4      	; 0x116 <main+0x94>
+ 11a:	00 c0       	rjmp	.+0      	; 0x11c <main+0x9a>
+ 11c:	00 00       	nop
+						//_delay_ms(5);
+						_delay_us(wait);
 						
 						PORTC = ~8;
- 114:	55 ba       	out	0x15, r5	; 21
+ 11e:	65 ba       	out	0x15, r6	; 21
 						PORTB = gEncoder[min/10];
- 116:	fc 01       	movw	r30, r24
- 118:	50 81       	ld	r21, Z
- 11a:	58 bb       	out	0x18, r21	; 24
- 11c:	ef e0       	ldi	r30, 0x0F	; 15
- 11e:	f7 e2       	ldi	r31, 0x27	; 39
- 120:	31 97       	sbiw	r30, 0x01	; 1
- 122:	f1 f7       	brne	.-4      	; 0x120 <main+0x9e>
- 124:	00 c0       	rjmp	.+0      	; 0x126 <main+0xa4>
- 126:	00 00       	nop
-						_delay_ms(5);
+ 120:	fc 01       	movw	r30, r24
+ 122:	50 81       	ld	r21, Z
+ 124:	58 bb       	out	0x18, r21	; 24
+ 126:	e7 e8       	ldi	r30, 0x87	; 135
+ 128:	f3 e1       	ldi	r31, 0x13	; 19
+ 12a:	31 97       	sbiw	r30, 0x01	; 1
+ 12c:	f1 f7       	brne	.-4      	; 0x12a <main+0xa8>
+ 12e:	00 c0       	rjmp	.+0      	; 0x130 <main+0xae>
+ 130:	00 00       	nop
+						//_delay_ms(5);
+						_delay_us(wait);
 						
 						PORTC = ~16;
- 128:	d5 ba       	out	0x15, r13	; 21
+ 132:	55 ba       	out	0x15, r5	; 21
 						PORTB = gEncoder[hr%10];
- 12a:	f8 01       	movw	r30, r16
- 12c:	50 81       	ld	r21, Z
- 12e:	58 bb       	out	0x18, r21	; 24
- 130:	ef e0       	ldi	r30, 0x0F	; 15
- 132:	f7 e2       	ldi	r31, 0x27	; 39
- 134:	31 97       	sbiw	r30, 0x01	; 1
- 136:	f1 f7       	brne	.-4      	; 0x134 <main+0xb2>
- 138:	00 c0       	rjmp	.+0      	; 0x13a <main+0xb8>
- 13a:	00 00       	nop
-						_delay_ms(5);
+ 134:	f6 01       	movw	r30, r12
+ 136:	50 81       	ld	r21, Z
+ 138:	58 bb       	out	0x18, r21	; 24
+ 13a:	e7 e8       	ldi	r30, 0x87	; 135
+ 13c:	f3 e1       	ldi	r31, 0x13	; 19
+ 13e:	31 97       	sbiw	r30, 0x01	; 1
+ 140:	f1 f7       	brne	.-4      	; 0x13e <main+0xbc>
+ 142:	00 c0       	rjmp	.+0      	; 0x144 <main+0xc2>
+ 144:	00 00       	nop
+						//_delay_ms(5);
+						_delay_us(wait);
 						
 						PORTC = ~32;
- 13c:	c5 ba       	out	0x15, r12	; 21
+ 146:	85 ba       	out	0x15, r8	; 21
 						PORTB = gEncoder[hr/10];
- 13e:	f5 01       	movw	r30, r10
- 140:	50 81       	ld	r21, Z
- 142:	58 bb       	out	0x18, r21	; 24
- 144:	ef e0       	ldi	r30, 0x0F	; 15
- 146:	f7 e2       	ldi	r31, 0x27	; 39
- 148:	31 97       	sbiw	r30, 0x01	; 1
- 14a:	f1 f7       	brne	.-4      	; 0x148 <main+0xc6>
- 14c:	00 c0       	rjmp	.+0      	; 0x14e <main+0xcc>
- 14e:	00 00       	nop
- 150:	21 50       	subi	r18, 0x01	; 1
- 152:	31 09       	sbc	r19, r1
+ 148:	f8 01       	movw	r30, r16
+ 14a:	50 81       	ld	r21, Z
+ 14c:	58 bb       	out	0x18, r21	; 24
+ 14e:	e7 e8       	ldi	r30, 0x87	; 135
+ 150:	f3 e1       	ldi	r31, 0x13	; 19
+ 152:	31 97       	sbiw	r30, 0x01	; 1
+ 154:	f1 f7       	brne	.-4      	; 0x152 <main+0xd0>
+ 156:	00 c0       	rjmp	.+0      	; 0x158 <main+0xd6>
+ 158:	00 00       	nop
+ 15a:	21 50       	subi	r18, 0x01	; 1
+ 15c:	31 09       	sbc	r19, r1
     while (1) 
     {
-		for(hr=1;hr<13;hr++){ //for loop to change hours
+		for(hr=0;hr<12;hr++){ //for loop to change hours
 			for(min=0;min<60;min++){ //for loop to change minutes
 				for(sec=0;sec<60;sec++){ //for to change seconds
-					for(i=0;i<30;i++){ //for loop to multiplex and render with frequency of 30 Hz
- 154:	09 f0       	breq	.+2      	; 0x158 <main+0xd6>
- 156:	c0 cf       	rjmp	.-128    	; 0xd8 <main+0x56>
- 158:	ed 81       	ldd	r30, Y+5	; 0x05
- 15a:	fe 81       	ldd	r31, Y+6	; 0x06
- 15c:	9e 83       	std	Y+6, r25	; 0x06
- 15e:	8d 83       	std	Y+5, r24	; 0x05
+					for(i=0;i<60;i++){ //for loop to multiplex and render with frequency of 30 Hz (the frequency that the eye can see )
+ 15e:	09 f0       	breq	.+2      	; 0x162 <main+0xe0>
+ 160:	c0 cf       	rjmp	.-128    	; 0xe2 <main+0x60>
+ 162:	ef 81       	ldd	r30, Y+7	; 0x07
+ 164:	f8 85       	ldd	r31, Y+8	; 0x08
+ 166:	98 87       	std	Y+8, r25	; 0x08
+ 168:	8f 83       	std	Y+7, r24	; 0x07
 
     while (1) 
     {
-		for(hr=1;hr<13;hr++){ //for loop to change hours
+		for(hr=0;hr<12;hr++){ //for loop to change hours
 			for(min=0;min<60;min++){ //for loop to change minutes
 				for(sec=0;sec<60;sec++){ //for to change seconds
- 160:	8f ef       	ldi	r24, 0xFF	; 255
- 162:	e8 1a       	sub	r14, r24
- 164:	f8 0a       	sbc	r15, r24
- 166:	9c e3       	ldi	r25, 0x3C	; 60
- 168:	e9 16       	cp	r14, r25
- 16a:	f1 04       	cpc	r15, r1
- 16c:	a9 f0       	breq	.+42     	; 0x198 <main+0x116>
+ 16a:	2f ef       	ldi	r18, 0xFF	; 255
+ 16c:	e2 1a       	sub	r14, r18
+ 16e:	f2 0a       	sbc	r15, r18
+ 170:	3c e3       	ldi	r19, 0x3C	; 60
+ 172:	e3 16       	cp	r14, r19
+ 174:	f1 04       	cpc	r15, r1
+ 176:	a1 f0       	breq	.+40     	; 0x1a0 <main+0x11e>
+						PORTB = gEncoder[sec%10];
+						//_delay_ms(5);
+						_delay_us(wait);
+						
+						PORTC = ~2;
+						PORTB = gEncoder[sec/10];
+ 178:	c7 01       	movw	r24, r14
+ 17a:	b1 01       	movw	r22, r2
+ 17c:	0e 94 05 01 	call	0x20a	; 0x20a <__divmodhi4>
+ 180:	2c e3       	ldi	r18, 0x3C	; 60
+ 182:	30 e0       	ldi	r19, 0x00	; 0
+			for(min=0;min<60;min++){ //for loop to change minutes
+				for(sec=0;sec<60;sec++){ //for to change seconds
+					for(i=0;i<60;i++){ //for loop to multiplex and render with frequency of 30 Hz (the frequency that the eye can see )
+						
 						PORTC = ~1;
 						PORTB = gEncoder[sec%10];
-						_delay_ms(5);
+ 184:	dc 01       	movw	r26, r24
+ 186:	aa 0f       	add	r26, r26
+ 188:	bb 1f       	adc	r27, r27
+ 18a:	a0 5a       	subi	r26, 0xA0	; 160
+ 18c:	bf 4f       	sbci	r27, 0xFF	; 255
+						//_delay_ms(5);
+						_delay_us(wait);
 						
 						PORTC = ~2;
 						PORTB = gEncoder[sec/10];
- 16e:	c7 01       	movw	r24, r14
- 170:	6a e0       	ldi	r22, 0x0A	; 10
- 172:	70 e0       	ldi	r23, 0x00	; 0
- 174:	0e 94 03 01 	call	0x206	; 0x206 <__divmodhi4>
- 178:	24 2d       	mov	r18, r4
- 17a:	33 2d       	mov	r19, r3
-			for(min=0;min<60;min++){ //for loop to change minutes
-				for(sec=0;sec<60;sec++){ //for to change seconds
-					for(i=0;i<30;i++){ //for loop to multiplex and render with frequency of 30 Hz
-						
-						PORTC = ~1;
-						PORTB = gEncoder[sec%10];
- 17c:	dc 01       	movw	r26, r24
- 17e:	aa 0f       	add	r26, r26
- 180:	bb 1f       	adc	r27, r27
- 182:	a0 5a       	subi	r26, 0xA0	; 160
- 184:	bf 4f       	sbci	r27, 0xFF	; 255
-						_delay_ms(5);
-						
-						PORTC = ~2;
-						PORTB = gEncoder[sec/10];
- 186:	66 0f       	add	r22, r22
- 188:	77 1f       	adc	r23, r23
- 18a:	60 5a       	subi	r22, 0xA0	; 160
- 18c:	7f 4f       	sbci	r23, 0xFF	; 255
- 18e:	8d 81       	ldd	r24, Y+5	; 0x05
- 190:	9e 81       	ldd	r25, Y+6	; 0x06
- 192:	fe 83       	std	Y+6, r31	; 0x06
- 194:	ed 83       	std	Y+5, r30	; 0x05
- 196:	a0 cf       	rjmp	.-192    	; 0xd8 <main+0x56>
-	DDRB = 0xFF;
+ 18e:	66 0f       	add	r22, r22
+ 190:	77 1f       	adc	r23, r23
+ 192:	60 5a       	subi	r22, 0xA0	; 160
+ 194:	7f 4f       	sbci	r23, 0xFF	; 255
+ 196:	8f 81       	ldd	r24, Y+7	; 0x07
+ 198:	98 85       	ldd	r25, Y+8	; 0x08
+ 19a:	f8 87       	std	Y+8, r31	; 0x08
+ 19c:	ef 83       	std	Y+7, r30	; 0x07
+ 19e:	a1 cf       	rjmp	.-190    	; 0xe2 <main+0x60>
+	float wait = 2500;
 
     while (1) 
     {
-		for(hr=1;hr<13;hr++){ //for loop to change hours
+		for(hr=0;hr<12;hr++){ //for loop to change hours
 			for(min=0;min<60;min++){ //for loop to change minutes
- 198:	e9 81       	ldd	r30, Y+1	; 0x01
- 19a:	fa 81       	ldd	r31, Y+2	; 0x02
- 19c:	31 96       	adiw	r30, 0x01	; 1
- 19e:	fa 83       	std	Y+2, r31	; 0x02
- 1a0:	e9 83       	std	Y+1, r30	; 0x01
- 1a2:	fc 97       	sbiw	r30, 0x3c	; 60
- 1a4:	a1 f0       	breq	.+40     	; 0x1ce <main+0x14c>
-						PORTC = ~4;
+ 1a0:	8f ef       	ldi	r24, 0xFF	; 255
+ 1a2:	a8 1a       	sub	r10, r24
+ 1a4:	b8 0a       	sbc	r11, r24
+ 1a6:	9c e3       	ldi	r25, 0x3C	; 60
+ 1a8:	a9 16       	cp	r10, r25
+ 1aa:	b1 04       	cpc	r11, r1
+ 1ac:	91 f0       	breq	.+36     	; 0x1d2 <main+0x150>
 						PORTB = gEncoder[min%10];
-						_delay_ms(5);
+						//_delay_ms(5);
+						_delay_us(wait);
 						
 						PORTC = ~8;
 						PORTB = gEncoder[min/10];
- 1a6:	89 81       	ldd	r24, Y+1	; 0x01
- 1a8:	9a 81       	ldd	r25, Y+2	; 0x02
- 1aa:	6a e0       	ldi	r22, 0x0A	; 10
- 1ac:	70 e0       	ldi	r23, 0x00	; 0
- 1ae:	0e 94 03 01 	call	0x206	; 0x206 <__divmodhi4>
- 1b2:	eb 80       	ldd	r14, Y+3	; 0x03
- 1b4:	fc 80       	ldd	r15, Y+4	; 0x04
-						PORTC = ~2;
+ 1ae:	c5 01       	movw	r24, r10
+ 1b0:	b1 01       	movw	r22, r2
+ 1b2:	0e 94 05 01 	call	0x20a	; 0x20a <__divmodhi4>
+ 1b6:	ed 80       	ldd	r14, Y+5	; 0x05
+ 1b8:	fe 80       	ldd	r15, Y+6	; 0x06
 						PORTB = gEncoder[sec/10];
-						_delay_ms(5);
+						//_delay_ms(5);
+						_delay_us(wait);
 						
 						PORTC = ~4;
 						PORTB = gEncoder[min%10];
- 1b6:	fc 01       	movw	r30, r24
- 1b8:	ee 0f       	add	r30, r30
- 1ba:	ff 1f       	adc	r31, r31
- 1bc:	e0 5a       	subi	r30, 0xA0	; 160
- 1be:	ff 4f       	sbci	r31, 0xFF	; 255
-						_delay_ms(5);
+ 1ba:	fc 01       	movw	r30, r24
+ 1bc:	ee 0f       	add	r30, r30
+ 1be:	ff 1f       	adc	r31, r31
+ 1c0:	e0 5a       	subi	r30, 0xA0	; 160
+ 1c2:	ff 4f       	sbci	r31, 0xFF	; 255
+						//_delay_ms(5);
+						_delay_us(wait);
 						
 						PORTC = ~8;
 						PORTB = gEncoder[min/10];
- 1c0:	66 0f       	add	r22, r22
- 1c2:	77 1f       	adc	r23, r23
- 1c4:	60 5a       	subi	r22, 0xA0	; 160
- 1c6:	7f 4f       	sbci	r23, 0xFF	; 255
- 1c8:	7e 83       	std	Y+6, r23	; 0x06
- 1ca:	6d 83       	std	Y+5, r22	; 0x05
- 1cc:	d0 cf       	rjmp	.-96     	; 0x16e <main+0xec>
-	DDRC = 0xFF;
+ 1c4:	66 0f       	add	r22, r22
+ 1c6:	77 1f       	adc	r23, r23
+ 1c8:	60 5a       	subi	r22, 0xA0	; 160
+ 1ca:	7f 4f       	sbci	r23, 0xFF	; 255
+ 1cc:	78 87       	std	Y+8, r23	; 0x08
+ 1ce:	6f 83       	std	Y+7, r22	; 0x07
+ 1d0:	d3 cf       	rjmp	.-90     	; 0x178 <main+0xf6>
 	DDRB = 0xFF;
+	float wait = 2500;
 
     while (1) 
     {
-		for(hr=1;hr<13;hr++){ //for loop to change hours
- 1ce:	ff ef       	ldi	r31, 0xFF	; 255
- 1d0:	8f 1a       	sub	r8, r31
- 1d2:	9f 0a       	sbc	r9, r31
- 1d4:	8d e0       	ldi	r24, 0x0D	; 13
- 1d6:	88 16       	cp	r8, r24
- 1d8:	91 04       	cpc	r9, r1
- 1da:	09 f4       	brne	.+2      	; 0x1de <main+0x15c>
- 1dc:	71 cf       	rjmp	.-286    	; 0xc0 <main+0x3e>
-						PORTC = ~16;
+		for(hr=0;hr<12;hr++){ //for loop to change hours
+ 1d2:	e9 81       	ldd	r30, Y+1	; 0x01
+ 1d4:	fa 81       	ldd	r31, Y+2	; 0x02
+ 1d6:	31 96       	adiw	r30, 0x01	; 1
+ 1d8:	fa 83       	std	Y+2, r31	; 0x02
+ 1da:	e9 83       	std	Y+1, r30	; 0x01
+ 1dc:	3c 97       	sbiw	r30, 0x0c	; 12
+ 1de:	09 f4       	brne	.+2      	; 0x1e2 <main+0x160>
+ 1e0:	79 cf       	rjmp	.-270    	; 0xd4 <main+0x52>
 						PORTB = gEncoder[hr%10];
-						_delay_ms(5);
+						//_delay_ms(5);
+						_delay_us(wait);
 						
 						PORTC = ~32;
 						PORTB = gEncoder[hr/10];
- 1de:	c4 01       	movw	r24, r8
- 1e0:	6a e0       	ldi	r22, 0x0A	; 10
- 1e2:	70 e0       	ldi	r23, 0x00	; 0
- 1e4:	0e 94 03 01 	call	0x206	; 0x206 <__divmodhi4>
- 1e8:	19 82       	std	Y+1, r1	; 0x01
- 1ea:	2a 82       	std	Y+2, r2	; 0x02
-						PORTC = ~8;
+ 1e2:	89 81       	ldd	r24, Y+1	; 0x01
+ 1e4:	9a 81       	ldd	r25, Y+2	; 0x02
+ 1e6:	b1 01       	movw	r22, r2
+ 1e8:	0e 94 05 01 	call	0x20a	; 0x20a <__divmodhi4>
+ 1ec:	ab 80       	ldd	r10, Y+3	; 0x03
+ 1ee:	bc 80       	ldd	r11, Y+4	; 0x04
 						PORTB = gEncoder[min/10];
-						_delay_ms(5);
+						//_delay_ms(5);
+						_delay_us(wait);
 						
 						PORTC = ~16;
 						PORTB = gEncoder[hr%10];
- 1ec:	fc 01       	movw	r30, r24
- 1ee:	ee 0f       	add	r30, r30
- 1f0:	ff 1f       	adc	r31, r31
- 1f2:	e0 5a       	subi	r30, 0xA0	; 160
- 1f4:	ff 4f       	sbci	r31, 0xFF	; 255
-						_delay_ms(5);
+ 1f0:	88 0f       	add	r24, r24
+ 1f2:	99 1f       	adc	r25, r25
+ 1f4:	9c 01       	movw	r18, r24
+ 1f6:	20 5a       	subi	r18, 0xA0	; 160
+ 1f8:	3f 4f       	sbci	r19, 0xFF	; 255
+ 1fa:	69 01       	movw	r12, r18
+						//_delay_ms(5);
+						_delay_us(wait);
 						
 						PORTC = ~32;
 						PORTB = gEncoder[hr/10];
- 1f6:	66 0f       	add	r22, r22
- 1f8:	77 1f       	adc	r23, r23
- 1fa:	cb 01       	movw	r24, r22
- 1fc:	80 5a       	subi	r24, 0xA0	; 160
- 1fe:	9f 4f       	sbci	r25, 0xFF	; 255
- 200:	5c 01       	movw	r10, r24
- 202:	8f 01       	movw	r16, r30
- 204:	d0 cf       	rjmp	.-96     	; 0x1a6 <main+0x124>
+ 1fc:	fb 01       	movw	r30, r22
+ 1fe:	ee 0f       	add	r30, r30
+ 200:	ff 1f       	adc	r31, r31
+ 202:	e0 5a       	subi	r30, 0xA0	; 160
+ 204:	ff 4f       	sbci	r31, 0xFF	; 255
+ 206:	8f 01       	movw	r16, r30
+ 208:	d2 cf       	rjmp	.-92     	; 0x1ae <main+0x12c>
 
-00000206 <__divmodhi4>:
- 206:	97 fb       	bst	r25, 7
- 208:	07 2e       	mov	r0, r23
- 20a:	16 f4       	brtc	.+4      	; 0x210 <__divmodhi4+0xa>
- 20c:	00 94       	com	r0
- 20e:	07 d0       	rcall	.+14     	; 0x21e <__divmodhi4_neg1>
- 210:	77 fd       	sbrc	r23, 7
- 212:	09 d0       	rcall	.+18     	; 0x226 <__divmodhi4_neg2>
- 214:	0e 94 17 01 	call	0x22e	; 0x22e <__udivmodhi4>
- 218:	07 fc       	sbrc	r0, 7
- 21a:	05 d0       	rcall	.+10     	; 0x226 <__divmodhi4_neg2>
- 21c:	3e f4       	brtc	.+14     	; 0x22c <__divmodhi4_exit>
+0000020a <__divmodhi4>:
+ 20a:	97 fb       	bst	r25, 7
+ 20c:	07 2e       	mov	r0, r23
+ 20e:	16 f4       	brtc	.+4      	; 0x214 <__divmodhi4+0xa>
+ 210:	00 94       	com	r0
+ 212:	07 d0       	rcall	.+14     	; 0x222 <__divmodhi4_neg1>
+ 214:	77 fd       	sbrc	r23, 7
+ 216:	09 d0       	rcall	.+18     	; 0x22a <__divmodhi4_neg2>
+ 218:	0e 94 19 01 	call	0x232	; 0x232 <__udivmodhi4>
+ 21c:	07 fc       	sbrc	r0, 7
+ 21e:	05 d0       	rcall	.+10     	; 0x22a <__divmodhi4_neg2>
+ 220:	3e f4       	brtc	.+14     	; 0x230 <__divmodhi4_exit>
 
-0000021e <__divmodhi4_neg1>:
- 21e:	90 95       	com	r25
- 220:	81 95       	neg	r24
- 222:	9f 4f       	sbci	r25, 0xFF	; 255
- 224:	08 95       	ret
+00000222 <__divmodhi4_neg1>:
+ 222:	90 95       	com	r25
+ 224:	81 95       	neg	r24
+ 226:	9f 4f       	sbci	r25, 0xFF	; 255
+ 228:	08 95       	ret
 
-00000226 <__divmodhi4_neg2>:
- 226:	70 95       	com	r23
- 228:	61 95       	neg	r22
- 22a:	7f 4f       	sbci	r23, 0xFF	; 255
+0000022a <__divmodhi4_neg2>:
+ 22a:	70 95       	com	r23
+ 22c:	61 95       	neg	r22
+ 22e:	7f 4f       	sbci	r23, 0xFF	; 255
 
-0000022c <__divmodhi4_exit>:
- 22c:	08 95       	ret
+00000230 <__divmodhi4_exit>:
+ 230:	08 95       	ret
 
-0000022e <__udivmodhi4>:
- 22e:	aa 1b       	sub	r26, r26
- 230:	bb 1b       	sub	r27, r27
- 232:	51 e1       	ldi	r21, 0x11	; 17
- 234:	07 c0       	rjmp	.+14     	; 0x244 <__udivmodhi4_ep>
+00000232 <__udivmodhi4>:
+ 232:	aa 1b       	sub	r26, r26
+ 234:	bb 1b       	sub	r27, r27
+ 236:	51 e1       	ldi	r21, 0x11	; 17
+ 238:	07 c0       	rjmp	.+14     	; 0x248 <__udivmodhi4_ep>
 
-00000236 <__udivmodhi4_loop>:
- 236:	aa 1f       	adc	r26, r26
- 238:	bb 1f       	adc	r27, r27
- 23a:	a6 17       	cp	r26, r22
- 23c:	b7 07       	cpc	r27, r23
- 23e:	10 f0       	brcs	.+4      	; 0x244 <__udivmodhi4_ep>
- 240:	a6 1b       	sub	r26, r22
- 242:	b7 0b       	sbc	r27, r23
+0000023a <__udivmodhi4_loop>:
+ 23a:	aa 1f       	adc	r26, r26
+ 23c:	bb 1f       	adc	r27, r27
+ 23e:	a6 17       	cp	r26, r22
+ 240:	b7 07       	cpc	r27, r23
+ 242:	10 f0       	brcs	.+4      	; 0x248 <__udivmodhi4_ep>
+ 244:	a6 1b       	sub	r26, r22
+ 246:	b7 0b       	sbc	r27, r23
 
-00000244 <__udivmodhi4_ep>:
- 244:	88 1f       	adc	r24, r24
- 246:	99 1f       	adc	r25, r25
- 248:	5a 95       	dec	r21
- 24a:	a9 f7       	brne	.-22     	; 0x236 <__udivmodhi4_loop>
- 24c:	80 95       	com	r24
- 24e:	90 95       	com	r25
- 250:	bc 01       	movw	r22, r24
- 252:	cd 01       	movw	r24, r26
- 254:	08 95       	ret
+00000248 <__udivmodhi4_ep>:
+ 248:	88 1f       	adc	r24, r24
+ 24a:	99 1f       	adc	r25, r25
+ 24c:	5a 95       	dec	r21
+ 24e:	a9 f7       	brne	.-22     	; 0x23a <__udivmodhi4_loop>
+ 250:	80 95       	com	r24
+ 252:	90 95       	com	r25
+ 254:	bc 01       	movw	r22, r24
+ 256:	cd 01       	movw	r24, r26
+ 258:	08 95       	ret
 
-00000256 <_exit>:
- 256:	f8 94       	cli
+0000025a <_exit>:
+ 25a:	f8 94       	cli
 
-00000258 <__stop_program>:
- 258:	ff cf       	rjmp	.-2      	; 0x258 <__stop_program>
+0000025c <__stop_program>:
+ 25c:	ff cf       	rjmp	.-2      	; 0x25c <__stop_program>
