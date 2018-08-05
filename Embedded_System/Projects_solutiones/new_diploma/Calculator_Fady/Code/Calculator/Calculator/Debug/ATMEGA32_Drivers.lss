@@ -1,0 +1,925 @@
+
+ATMEGA32_Drivers.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000582  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .data         00000018  00800060  00000582  00000616  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000004  00800078  00800078  0000062e  2**0
+                  ALLOC
+  3 .debug_aranges 00000088  00000000  00000000  0000062e  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  4 .debug_pubnames 0000014c  00000000  00000000  000006b6  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   0000041d  00000000  00000000  00000802  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 00000139  00000000  00000000  00000c1f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000003c6  00000000  00000000  00000d58  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  000000d0  00000000  00000000  00001120  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    000001e0  00000000  00000000  000011f0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_macinfo 00001dfd  00000000  00000000  000013d0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000078  00000000  00000000  000031cd  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 2a 00 	jmp	0x54	; 0x54 <__ctors_end>
+   4:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   8:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+   c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  10:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  14:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  18:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  1c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  20:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  24:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  28:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  2c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  30:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  34:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  38:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  3c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  40:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  44:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  48:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  4c:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+  50:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
+
+00000054 <__ctors_end>:
+  54:	11 24       	eor	r1, r1
+  56:	1f be       	out	0x3f, r1	; 63
+  58:	cf e5       	ldi	r28, 0x5F	; 95
+  5a:	d8 e0       	ldi	r29, 0x08	; 8
+  5c:	de bf       	out	0x3e, r29	; 62
+  5e:	cd bf       	out	0x3d, r28	; 61
+
+00000060 <__do_copy_data>:
+  60:	10 e0       	ldi	r17, 0x00	; 0
+  62:	a0 e6       	ldi	r26, 0x60	; 96
+  64:	b0 e0       	ldi	r27, 0x00	; 0
+  66:	e2 e8       	ldi	r30, 0x82	; 130
+  68:	f5 e0       	ldi	r31, 0x05	; 5
+  6a:	02 c0       	rjmp	.+4      	; 0x70 <.do_copy_data_start>
+
+0000006c <.do_copy_data_loop>:
+  6c:	05 90       	lpm	r0, Z+
+  6e:	0d 92       	st	X+, r0
+
+00000070 <.do_copy_data_start>:
+  70:	a8 37       	cpi	r26, 0x78	; 120
+  72:	b1 07       	cpc	r27, r17
+  74:	d9 f7       	brne	.-10     	; 0x6c <.do_copy_data_loop>
+
+00000076 <__do_clear_bss>:
+  76:	10 e0       	ldi	r17, 0x00	; 0
+  78:	a8 e7       	ldi	r26, 0x78	; 120
+  7a:	b0 e0       	ldi	r27, 0x00	; 0
+  7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
+
+0000007e <.do_clear_bss_loop>:
+  7e:	1d 92       	st	X+, r1
+
+00000080 <.do_clear_bss_start>:
+  80:	ac 37       	cpi	r26, 0x7C	; 124
+  82:	b1 07       	cpc	r27, r17
+  84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
+  86:	0e 94 73 02 	call	0x4e6	; 0x4e6 <main>
+  8a:	0c 94 bf 02 	jmp	0x57e	; 0x57e <_exit>
+
+0000008e <__bad_interrupt>:
+  8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+00000092 <get_port_index>:
+ volatile unsigned char*  GPIO_ports[] = {myPORTA,myPORTB,myPORTC,myPORTD};
+ volatile unsigned char*  GPIO_dirs[] = {myDDRA,myDDRB,myDDRC,myDDRD};
+ volatile unsigned char*  GPIO_pins[] = {myPINA,myPINB,myPINC,myPIND};
+
+u8 get_port_index (u8 port_name)
+{
+  92:	df 93       	push	r29
+  94:	cf 93       	push	r28
+  96:	00 d0       	rcall	.+0      	; 0x98 <get_port_index+0x6>
+  98:	00 d0       	rcall	.+0      	; 0x9a <get_port_index+0x8>
+  9a:	cd b7       	in	r28, 0x3d	; 61
+  9c:	de b7       	in	r29, 0x3e	; 62
+  9e:	8a 83       	std	Y+2, r24	; 0x02
+	u8 i ;
+	switch (port_name)
+  a0:	8a 81       	ldd	r24, Y+2	; 0x02
+  a2:	28 2f       	mov	r18, r24
+  a4:	30 e0       	ldi	r19, 0x00	; 0
+  a6:	3c 83       	std	Y+4, r19	; 0x04
+  a8:	2b 83       	std	Y+3, r18	; 0x03
+  aa:	8b 81       	ldd	r24, Y+3	; 0x03
+  ac:	9c 81       	ldd	r25, Y+4	; 0x04
+  ae:	84 34       	cpi	r24, 0x44	; 68
+  b0:	91 05       	cpc	r25, r1
+  b2:	c1 f1       	breq	.+112    	; 0x124 <get_port_index+0x92>
+  b4:	2b 81       	ldd	r18, Y+3	; 0x03
+  b6:	3c 81       	ldd	r19, Y+4	; 0x04
+  b8:	25 34       	cpi	r18, 0x45	; 69
+  ba:	31 05       	cpc	r19, r1
+  bc:	84 f4       	brge	.+32     	; 0xde <get_port_index+0x4c>
+  be:	8b 81       	ldd	r24, Y+3	; 0x03
+  c0:	9c 81       	ldd	r25, Y+4	; 0x04
+  c2:	82 34       	cpi	r24, 0x42	; 66
+  c4:	91 05       	cpc	r25, r1
+  c6:	41 f1       	breq	.+80     	; 0x118 <get_port_index+0x86>
+  c8:	2b 81       	ldd	r18, Y+3	; 0x03
+  ca:	3c 81       	ldd	r19, Y+4	; 0x04
+  cc:	23 34       	cpi	r18, 0x43	; 67
+  ce:	31 05       	cpc	r19, r1
+  d0:	34 f5       	brge	.+76     	; 0x11e <get_port_index+0x8c>
+  d2:	8b 81       	ldd	r24, Y+3	; 0x03
+  d4:	9c 81       	ldd	r25, Y+4	; 0x04
+  d6:	81 34       	cpi	r24, 0x41	; 65
+  d8:	91 05       	cpc	r25, r1
+  da:	e1 f0       	breq	.+56     	; 0x114 <get_port_index+0x82>
+  dc:	25 c0       	rjmp	.+74     	; 0x128 <get_port_index+0x96>
+  de:	2b 81       	ldd	r18, Y+3	; 0x03
+  e0:	3c 81       	ldd	r19, Y+4	; 0x04
+  e2:	22 36       	cpi	r18, 0x62	; 98
+  e4:	31 05       	cpc	r19, r1
+  e6:	c1 f0       	breq	.+48     	; 0x118 <get_port_index+0x86>
+  e8:	8b 81       	ldd	r24, Y+3	; 0x03
+  ea:	9c 81       	ldd	r25, Y+4	; 0x04
+  ec:	83 36       	cpi	r24, 0x63	; 99
+  ee:	91 05       	cpc	r25, r1
+  f0:	34 f4       	brge	.+12     	; 0xfe <get_port_index+0x6c>
+  f2:	2b 81       	ldd	r18, Y+3	; 0x03
+  f4:	3c 81       	ldd	r19, Y+4	; 0x04
+  f6:	21 36       	cpi	r18, 0x61	; 97
+  f8:	31 05       	cpc	r19, r1
+  fa:	61 f0       	breq	.+24     	; 0x114 <get_port_index+0x82>
+  fc:	15 c0       	rjmp	.+42     	; 0x128 <get_port_index+0x96>
+  fe:	8b 81       	ldd	r24, Y+3	; 0x03
+ 100:	9c 81       	ldd	r25, Y+4	; 0x04
+ 102:	83 36       	cpi	r24, 0x63	; 99
+ 104:	91 05       	cpc	r25, r1
+ 106:	59 f0       	breq	.+22     	; 0x11e <get_port_index+0x8c>
+ 108:	2b 81       	ldd	r18, Y+3	; 0x03
+ 10a:	3c 81       	ldd	r19, Y+4	; 0x04
+ 10c:	24 36       	cpi	r18, 0x64	; 100
+ 10e:	31 05       	cpc	r19, r1
+ 110:	49 f0       	breq	.+18     	; 0x124 <get_port_index+0x92>
+ 112:	0a c0       	rjmp	.+20     	; 0x128 <get_port_index+0x96>
+	{
+	case 'A':
+	case 'a':
+		i = 0 ;
+ 114:	19 82       	std	Y+1, r1	; 0x01
+ 116:	08 c0       	rjmp	.+16     	; 0x128 <get_port_index+0x96>
+		break;
+	case 'B' :
+	case 'b':
+		i = 1 ;
+ 118:	81 e0       	ldi	r24, 0x01	; 1
+ 11a:	89 83       	std	Y+1, r24	; 0x01
+ 11c:	05 c0       	rjmp	.+10     	; 0x128 <get_port_index+0x96>
+		break;
+	case 'C':
+	case 'c':
+		i = 2 ;
+ 11e:	82 e0       	ldi	r24, 0x02	; 2
+ 120:	89 83       	std	Y+1, r24	; 0x01
+ 122:	02 c0       	rjmp	.+4      	; 0x128 <get_port_index+0x96>
+		break;
+	case 'D':
+	case 'd':
+
+		i = 3 ;
+ 124:	83 e0       	ldi	r24, 0x03	; 3
+ 126:	89 83       	std	Y+1, r24	; 0x01
+		break;
+
+	}
+return i ;
+ 128:	89 81       	ldd	r24, Y+1	; 0x01
+
+}
+ 12a:	0f 90       	pop	r0
+ 12c:	0f 90       	pop	r0
+ 12e:	0f 90       	pop	r0
+ 130:	0f 90       	pop	r0
+ 132:	cf 91       	pop	r28
+ 134:	df 91       	pop	r29
+ 136:	08 95       	ret
+
+00000138 <GPIO_voidInit>:
+
+
+
+ void GPIO_voidInit(void)
+{
+ 138:	df 93       	push	r29
+ 13a:	cf 93       	push	r28
+ 13c:	cd b7       	in	r28, 0x3d	; 61
+ 13e:	de b7       	in	r29, 0x3e	; 62
+	/*Comment!: DDR initialization  */
+	*GPIO_dirs[0] = Init_direction_default;
+ 140:	e0 91 68 00 	lds	r30, 0x0068
+ 144:	f0 91 69 00 	lds	r31, 0x0069
+ 148:	10 82       	st	Z, r1
+	*GPIO_dirs[1] = Init_direction_default;
+ 14a:	e0 91 6a 00 	lds	r30, 0x006A
+ 14e:	f0 91 6b 00 	lds	r31, 0x006B
+ 152:	10 82       	st	Z, r1
+	*GPIO_dirs[2] = Init_direction_default;
+ 154:	e0 91 6c 00 	lds	r30, 0x006C
+ 158:	f0 91 6d 00 	lds	r31, 0x006D
+ 15c:	10 82       	st	Z, r1
+	*GPIO_dirs[3] = Init_direction_default;
+ 15e:	e0 91 6e 00 	lds	r30, 0x006E
+ 162:	f0 91 6f 00 	lds	r31, 0x006F
+ 166:	10 82       	st	Z, r1
+
+}
+ 168:	cf 91       	pop	r28
+ 16a:	df 91       	pop	r29
+ 16c:	08 95       	ret
+
+0000016e <GPIO_u8_ReadPinVal>:
+
+//===================PIN==========================
+//Data
+/*Comment!: Read Pin Value */
+u8 GPIO_u8_ReadPinVal(u8 PinIdx,u8* PtrToVal, u8 Port_Name)
+{
+ 16e:	df 93       	push	r29
+ 170:	cf 93       	push	r28
+ 172:	00 d0       	rcall	.+0      	; 0x174 <GPIO_u8_ReadPinVal+0x6>
+ 174:	00 d0       	rcall	.+0      	; 0x176 <GPIO_u8_ReadPinVal+0x8>
+ 176:	0f 92       	push	r0
+ 178:	cd b7       	in	r28, 0x3d	; 61
+ 17a:	de b7       	in	r29, 0x3e	; 62
+ 17c:	8a 83       	std	Y+2, r24	; 0x02
+ 17e:	7c 83       	std	Y+4, r23	; 0x04
+ 180:	6b 83       	std	Y+3, r22	; 0x03
+ 182:	4d 83       	std	Y+5, r20	; 0x05
+	u8 API_Status ;
+
+	if(PinIdx > no_of_pins_on_port - 1)
+ 184:	8a 81       	ldd	r24, Y+2	; 0x02
+ 186:	88 30       	cpi	r24, 0x08	; 8
+ 188:	10 f0       	brcs	.+4      	; 0x18e <GPIO_u8_ReadPinVal+0x20>
+	{
+		API_Status = error_happen;
+ 18a:	19 82       	std	Y+1, r1	; 0x01
+ 18c:	20 c0       	rjmp	.+64     	; 0x1ce <GPIO_u8_ReadPinVal+0x60>
+	}
+	else
+	{
+
+		*PtrToVal =  ((*GPIO_pins [ get_port_index(Port_Name) ] >>PinIdx)&1) ;
+ 18e:	8d 81       	ldd	r24, Y+5	; 0x05
+ 190:	0e 94 49 00 	call	0x92	; 0x92 <get_port_index>
+ 194:	88 2f       	mov	r24, r24
+ 196:	90 e0       	ldi	r25, 0x00	; 0
+ 198:	88 0f       	add	r24, r24
+ 19a:	99 1f       	adc	r25, r25
+ 19c:	fc 01       	movw	r30, r24
+ 19e:	e0 59       	subi	r30, 0x90	; 144
+ 1a0:	ff 4f       	sbci	r31, 0xFF	; 255
+ 1a2:	01 90       	ld	r0, Z+
+ 1a4:	f0 81       	ld	r31, Z
+ 1a6:	e0 2d       	mov	r30, r0
+ 1a8:	80 81       	ld	r24, Z
+ 1aa:	28 2f       	mov	r18, r24
+ 1ac:	30 e0       	ldi	r19, 0x00	; 0
+ 1ae:	8a 81       	ldd	r24, Y+2	; 0x02
+ 1b0:	88 2f       	mov	r24, r24
+ 1b2:	90 e0       	ldi	r25, 0x00	; 0
+ 1b4:	a9 01       	movw	r20, r18
+ 1b6:	02 c0       	rjmp	.+4      	; 0x1bc <GPIO_u8_ReadPinVal+0x4e>
+ 1b8:	55 95       	asr	r21
+ 1ba:	47 95       	ror	r20
+ 1bc:	8a 95       	dec	r24
+ 1be:	e2 f7       	brpl	.-8      	; 0x1b8 <GPIO_u8_ReadPinVal+0x4a>
+ 1c0:	ca 01       	movw	r24, r20
+ 1c2:	81 70       	andi	r24, 0x01	; 1
+ 1c4:	eb 81       	ldd	r30, Y+3	; 0x03
+ 1c6:	fc 81       	ldd	r31, Y+4	; 0x04
+ 1c8:	80 83       	st	Z, r24
+		API_Status = No_error;
+ 1ca:	81 e0       	ldi	r24, 0x01	; 1
+ 1cc:	89 83       	std	Y+1, r24	; 0x01
+	}
+
+	return API_Status ;
+ 1ce:	89 81       	ldd	r24, Y+1	; 0x01
+
+}
+ 1d0:	0f 90       	pop	r0
+ 1d2:	0f 90       	pop	r0
+ 1d4:	0f 90       	pop	r0
+ 1d6:	0f 90       	pop	r0
+ 1d8:	0f 90       	pop	r0
+ 1da:	cf 91       	pop	r28
+ 1dc:	df 91       	pop	r29
+ 1de:	08 95       	ret
+
+000001e0 <GPIO_u8_WritePinVal>:
+
+/*Comment!: Write Pin Value */
+u8 GPIO_u8_WritePinVal(u8 PinIdx,u8 PinVal , u8 Port_Name)
+{
+ 1e0:	df 93       	push	r29
+ 1e2:	cf 93       	push	r28
+ 1e4:	00 d0       	rcall	.+0      	; 0x1e6 <GPIO_u8_WritePinVal+0x6>
+ 1e6:	00 d0       	rcall	.+0      	; 0x1e8 <GPIO_u8_WritePinVal+0x8>
+ 1e8:	00 d0       	rcall	.+0      	; 0x1ea <GPIO_u8_WritePinVal+0xa>
+ 1ea:	cd b7       	in	r28, 0x3d	; 61
+ 1ec:	de b7       	in	r29, 0x3e	; 62
+ 1ee:	8a 83       	std	Y+2, r24	; 0x02
+ 1f0:	6b 83       	std	Y+3, r22	; 0x03
+ 1f2:	4c 83       	std	Y+4, r20	; 0x04
+	u8 API_Status ;
+
+	if(PinIdx > no_of_pins_on_port - 1)
+ 1f4:	8a 81       	ldd	r24, Y+2	; 0x02
+ 1f6:	88 30       	cpi	r24, 0x08	; 8
+ 1f8:	10 f0       	brcs	.+4      	; 0x1fe <GPIO_u8_WritePinVal+0x1e>
+	{
+		API_Status = error_happen;
+ 1fa:	19 82       	std	Y+1, r1	; 0x01
+ 1fc:	4f c0       	rjmp	.+158    	; 0x29c <GPIO_u8_WritePinVal+0xbc>
+	}
+	else
+	{
+		switch(PinVal)
+ 1fe:	8b 81       	ldd	r24, Y+3	; 0x03
+ 200:	28 2f       	mov	r18, r24
+ 202:	30 e0       	ldi	r19, 0x00	; 0
+ 204:	3e 83       	std	Y+6, r19	; 0x06
+ 206:	2d 83       	std	Y+5, r18	; 0x05
+ 208:	8d 81       	ldd	r24, Y+5	; 0x05
+ 20a:	9e 81       	ldd	r25, Y+6	; 0x06
+ 20c:	00 97       	sbiw	r24, 0x00	; 0
+ 20e:	29 f1       	breq	.+74     	; 0x25a <GPIO_u8_WritePinVal+0x7a>
+ 210:	2d 81       	ldd	r18, Y+5	; 0x05
+ 212:	3e 81       	ldd	r19, Y+6	; 0x06
+ 214:	21 30       	cpi	r18, 0x01	; 1
+ 216:	31 05       	cpc	r19, r1
+ 218:	09 f0       	breq	.+2      	; 0x21c <GPIO_u8_WritePinVal+0x3c>
+ 21a:	3f c0       	rjmp	.+126    	; 0x29a <GPIO_u8_WritePinVal+0xba>
+		{
+		case 1:
+			*GPIO_ports[ get_port_index(Port_Name) ] |= 1<<PinIdx;
+ 21c:	8c 81       	ldd	r24, Y+4	; 0x04
+ 21e:	0e 94 49 00 	call	0x92	; 0x92 <get_port_index>
+ 222:	88 2f       	mov	r24, r24
+ 224:	90 e0       	ldi	r25, 0x00	; 0
+ 226:	88 0f       	add	r24, r24
+ 228:	99 1f       	adc	r25, r25
+ 22a:	fc 01       	movw	r30, r24
+ 22c:	e0 5a       	subi	r30, 0xA0	; 160
+ 22e:	ff 4f       	sbci	r31, 0xFF	; 255
+ 230:	01 90       	ld	r0, Z+
+ 232:	f0 81       	ld	r31, Z
+ 234:	e0 2d       	mov	r30, r0
+ 236:	80 81       	ld	r24, Z
+ 238:	48 2f       	mov	r20, r24
+ 23a:	8a 81       	ldd	r24, Y+2	; 0x02
+ 23c:	28 2f       	mov	r18, r24
+ 23e:	30 e0       	ldi	r19, 0x00	; 0
+ 240:	81 e0       	ldi	r24, 0x01	; 1
+ 242:	90 e0       	ldi	r25, 0x00	; 0
+ 244:	02 2e       	mov	r0, r18
+ 246:	02 c0       	rjmp	.+4      	; 0x24c <GPIO_u8_WritePinVal+0x6c>
+ 248:	88 0f       	add	r24, r24
+ 24a:	99 1f       	adc	r25, r25
+ 24c:	0a 94       	dec	r0
+ 24e:	e2 f7       	brpl	.-8      	; 0x248 <GPIO_u8_WritePinVal+0x68>
+ 250:	84 2b       	or	r24, r20
+ 252:	80 83       	st	Z, r24
+			API_Status = No_error;
+ 254:	81 e0       	ldi	r24, 0x01	; 1
+ 256:	89 83       	std	Y+1, r24	; 0x01
+ 258:	21 c0       	rjmp	.+66     	; 0x29c <GPIO_u8_WritePinVal+0xbc>
+			break;
+		case 0:
+			*GPIO_ports[ get_port_index(Port_Name) ] &= ~(1<<PinIdx) ;
+ 25a:	8c 81       	ldd	r24, Y+4	; 0x04
+ 25c:	0e 94 49 00 	call	0x92	; 0x92 <get_port_index>
+ 260:	88 2f       	mov	r24, r24
+ 262:	90 e0       	ldi	r25, 0x00	; 0
+ 264:	88 0f       	add	r24, r24
+ 266:	99 1f       	adc	r25, r25
+ 268:	fc 01       	movw	r30, r24
+ 26a:	e0 5a       	subi	r30, 0xA0	; 160
+ 26c:	ff 4f       	sbci	r31, 0xFF	; 255
+ 26e:	01 90       	ld	r0, Z+
+ 270:	f0 81       	ld	r31, Z
+ 272:	e0 2d       	mov	r30, r0
+ 274:	80 81       	ld	r24, Z
+ 276:	48 2f       	mov	r20, r24
+ 278:	8a 81       	ldd	r24, Y+2	; 0x02
+ 27a:	28 2f       	mov	r18, r24
+ 27c:	30 e0       	ldi	r19, 0x00	; 0
+ 27e:	81 e0       	ldi	r24, 0x01	; 1
+ 280:	90 e0       	ldi	r25, 0x00	; 0
+ 282:	02 2e       	mov	r0, r18
+ 284:	02 c0       	rjmp	.+4      	; 0x28a <GPIO_u8_WritePinVal+0xaa>
+ 286:	88 0f       	add	r24, r24
+ 288:	99 1f       	adc	r25, r25
+ 28a:	0a 94       	dec	r0
+ 28c:	e2 f7       	brpl	.-8      	; 0x286 <GPIO_u8_WritePinVal+0xa6>
+ 28e:	80 95       	com	r24
+ 290:	84 23       	and	r24, r20
+ 292:	80 83       	st	Z, r24
+			API_Status = No_error;
+ 294:	81 e0       	ldi	r24, 0x01	; 1
+ 296:	89 83       	std	Y+1, r24	; 0x01
+ 298:	01 c0       	rjmp	.+2      	; 0x29c <GPIO_u8_WritePinVal+0xbc>
+			break;
+		default:
+			API_Status = error_happen;
+ 29a:	19 82       	std	Y+1, r1	; 0x01
+			break;
+
+		}
+	}
+
+	return API_Status ;
+ 29c:	89 81       	ldd	r24, Y+1	; 0x01
+
+}
+ 29e:	26 96       	adiw	r28, 0x06	; 6
+ 2a0:	0f b6       	in	r0, 0x3f	; 63
+ 2a2:	f8 94       	cli
+ 2a4:	de bf       	out	0x3e, r29	; 62
+ 2a6:	0f be       	out	0x3f, r0	; 63
+ 2a8:	cd bf       	out	0x3d, r28	; 61
+ 2aa:	cf 91       	pop	r28
+ 2ac:	df 91       	pop	r29
+ 2ae:	08 95       	ret
+
+000002b0 <GPIO_u8_WritePinDir>:
+
+//Direction
+/*Comment!: Write Pin Direction */
+u8 GPIO_u8_WritePinDir(u8 PinIdx,u8 PinDir , u8 Port_Name)
+{
+ 2b0:	df 93       	push	r29
+ 2b2:	cf 93       	push	r28
+ 2b4:	00 d0       	rcall	.+0      	; 0x2b6 <GPIO_u8_WritePinDir+0x6>
+ 2b6:	00 d0       	rcall	.+0      	; 0x2b8 <GPIO_u8_WritePinDir+0x8>
+ 2b8:	00 d0       	rcall	.+0      	; 0x2ba <GPIO_u8_WritePinDir+0xa>
+ 2ba:	cd b7       	in	r28, 0x3d	; 61
+ 2bc:	de b7       	in	r29, 0x3e	; 62
+ 2be:	8a 83       	std	Y+2, r24	; 0x02
+ 2c0:	6b 83       	std	Y+3, r22	; 0x03
+ 2c2:	4c 83       	std	Y+4, r20	; 0x04
+	u8 API_Status ;
+
+	if(PinIdx > no_of_pins_on_port - 1)
+ 2c4:	8a 81       	ldd	r24, Y+2	; 0x02
+ 2c6:	88 30       	cpi	r24, 0x08	; 8
+ 2c8:	10 f0       	brcs	.+4      	; 0x2ce <GPIO_u8_WritePinDir+0x1e>
+	{
+		API_Status = error_happen;
+ 2ca:	19 82       	std	Y+1, r1	; 0x01
+ 2cc:	4f c0       	rjmp	.+158    	; 0x36c <GPIO_u8_WritePinDir+0xbc>
+	}
+	else
+	{
+		switch(PinDir)
+ 2ce:	8b 81       	ldd	r24, Y+3	; 0x03
+ 2d0:	28 2f       	mov	r18, r24
+ 2d2:	30 e0       	ldi	r19, 0x00	; 0
+ 2d4:	3e 83       	std	Y+6, r19	; 0x06
+ 2d6:	2d 83       	std	Y+5, r18	; 0x05
+ 2d8:	8d 81       	ldd	r24, Y+5	; 0x05
+ 2da:	9e 81       	ldd	r25, Y+6	; 0x06
+ 2dc:	00 97       	sbiw	r24, 0x00	; 0
+ 2de:	29 f1       	breq	.+74     	; 0x32a <GPIO_u8_WritePinDir+0x7a>
+ 2e0:	2d 81       	ldd	r18, Y+5	; 0x05
+ 2e2:	3e 81       	ldd	r19, Y+6	; 0x06
+ 2e4:	21 30       	cpi	r18, 0x01	; 1
+ 2e6:	31 05       	cpc	r19, r1
+ 2e8:	09 f0       	breq	.+2      	; 0x2ec <GPIO_u8_WritePinDir+0x3c>
+ 2ea:	3f c0       	rjmp	.+126    	; 0x36a <GPIO_u8_WritePinDir+0xba>
+		{
+		case 1:
+			*GPIO_dirs[ get_port_index(Port_Name) ] |= 1<<PinIdx;
+ 2ec:	8c 81       	ldd	r24, Y+4	; 0x04
+ 2ee:	0e 94 49 00 	call	0x92	; 0x92 <get_port_index>
+ 2f2:	88 2f       	mov	r24, r24
+ 2f4:	90 e0       	ldi	r25, 0x00	; 0
+ 2f6:	88 0f       	add	r24, r24
+ 2f8:	99 1f       	adc	r25, r25
+ 2fa:	fc 01       	movw	r30, r24
+ 2fc:	e8 59       	subi	r30, 0x98	; 152
+ 2fe:	ff 4f       	sbci	r31, 0xFF	; 255
+ 300:	01 90       	ld	r0, Z+
+ 302:	f0 81       	ld	r31, Z
+ 304:	e0 2d       	mov	r30, r0
+ 306:	80 81       	ld	r24, Z
+ 308:	48 2f       	mov	r20, r24
+ 30a:	8a 81       	ldd	r24, Y+2	; 0x02
+ 30c:	28 2f       	mov	r18, r24
+ 30e:	30 e0       	ldi	r19, 0x00	; 0
+ 310:	81 e0       	ldi	r24, 0x01	; 1
+ 312:	90 e0       	ldi	r25, 0x00	; 0
+ 314:	02 2e       	mov	r0, r18
+ 316:	02 c0       	rjmp	.+4      	; 0x31c <GPIO_u8_WritePinDir+0x6c>
+ 318:	88 0f       	add	r24, r24
+ 31a:	99 1f       	adc	r25, r25
+ 31c:	0a 94       	dec	r0
+ 31e:	e2 f7       	brpl	.-8      	; 0x318 <GPIO_u8_WritePinDir+0x68>
+ 320:	84 2b       	or	r24, r20
+ 322:	80 83       	st	Z, r24
+			API_Status = No_error;
+ 324:	81 e0       	ldi	r24, 0x01	; 1
+ 326:	89 83       	std	Y+1, r24	; 0x01
+ 328:	21 c0       	rjmp	.+66     	; 0x36c <GPIO_u8_WritePinDir+0xbc>
+			break;
+		case 0:
+			*GPIO_dirs[ get_port_index(Port_Name) ] &= ~(1<<PinIdx) ;
+ 32a:	8c 81       	ldd	r24, Y+4	; 0x04
+ 32c:	0e 94 49 00 	call	0x92	; 0x92 <get_port_index>
+ 330:	88 2f       	mov	r24, r24
+ 332:	90 e0       	ldi	r25, 0x00	; 0
+ 334:	88 0f       	add	r24, r24
+ 336:	99 1f       	adc	r25, r25
+ 338:	fc 01       	movw	r30, r24
+ 33a:	e8 59       	subi	r30, 0x98	; 152
+ 33c:	ff 4f       	sbci	r31, 0xFF	; 255
+ 33e:	01 90       	ld	r0, Z+
+ 340:	f0 81       	ld	r31, Z
+ 342:	e0 2d       	mov	r30, r0
+ 344:	80 81       	ld	r24, Z
+ 346:	48 2f       	mov	r20, r24
+ 348:	8a 81       	ldd	r24, Y+2	; 0x02
+ 34a:	28 2f       	mov	r18, r24
+ 34c:	30 e0       	ldi	r19, 0x00	; 0
+ 34e:	81 e0       	ldi	r24, 0x01	; 1
+ 350:	90 e0       	ldi	r25, 0x00	; 0
+ 352:	02 2e       	mov	r0, r18
+ 354:	02 c0       	rjmp	.+4      	; 0x35a <GPIO_u8_WritePinDir+0xaa>
+ 356:	88 0f       	add	r24, r24
+ 358:	99 1f       	adc	r25, r25
+ 35a:	0a 94       	dec	r0
+ 35c:	e2 f7       	brpl	.-8      	; 0x356 <GPIO_u8_WritePinDir+0xa6>
+ 35e:	80 95       	com	r24
+ 360:	84 23       	and	r24, r20
+ 362:	80 83       	st	Z, r24
+			API_Status = No_error;
+ 364:	81 e0       	ldi	r24, 0x01	; 1
+ 366:	89 83       	std	Y+1, r24	; 0x01
+ 368:	01 c0       	rjmp	.+2      	; 0x36c <GPIO_u8_WritePinDir+0xbc>
+			break;
+		default:
+			API_Status = error_happen;
+ 36a:	19 82       	std	Y+1, r1	; 0x01
+			break;
+
+		}
+	}
+
+	return API_Status ;
+ 36c:	89 81       	ldd	r24, Y+1	; 0x01
+
+}
+ 36e:	26 96       	adiw	r28, 0x06	; 6
+ 370:	0f b6       	in	r0, 0x3f	; 63
+ 372:	f8 94       	cli
+ 374:	de bf       	out	0x3e, r29	; 62
+ 376:	0f be       	out	0x3f, r0	; 63
+ 378:	cd bf       	out	0x3d, r28	; 61
+ 37a:	cf 91       	pop	r28
+ 37c:	df 91       	pop	r29
+ 37e:	08 95       	ret
+
+00000380 <GPIO_u8_ReadPinDir>:
+
+/*Comment!: Read Pin Direction */
+u8 GPIO_u8_ReadPinDir(u8 PinIdx,u8* PtrToDir , u8 Port_Name )
+{
+ 380:	df 93       	push	r29
+ 382:	cf 93       	push	r28
+ 384:	00 d0       	rcall	.+0      	; 0x386 <GPIO_u8_ReadPinDir+0x6>
+ 386:	00 d0       	rcall	.+0      	; 0x388 <GPIO_u8_ReadPinDir+0x8>
+ 388:	0f 92       	push	r0
+ 38a:	cd b7       	in	r28, 0x3d	; 61
+ 38c:	de b7       	in	r29, 0x3e	; 62
+ 38e:	8a 83       	std	Y+2, r24	; 0x02
+ 390:	7c 83       	std	Y+4, r23	; 0x04
+ 392:	6b 83       	std	Y+3, r22	; 0x03
+ 394:	4d 83       	std	Y+5, r20	; 0x05
+
+	u8 API_Status ;
+
+	if(PinIdx > no_of_pins_on_port - 1)
+ 396:	8a 81       	ldd	r24, Y+2	; 0x02
+ 398:	88 30       	cpi	r24, 0x08	; 8
+ 39a:	10 f0       	brcs	.+4      	; 0x3a0 <GPIO_u8_ReadPinDir+0x20>
+	{
+		API_Status = error_happen;
+ 39c:	19 82       	std	Y+1, r1	; 0x01
+ 39e:	20 c0       	rjmp	.+64     	; 0x3e0 <GPIO_u8_ReadPinDir+0x60>
+	}
+	else
+	{
+		*PtrToDir =  ((*GPIO_dirs [ get_port_index(Port_Name) ] >> PinIdx) & 1) ;
+ 3a0:	8d 81       	ldd	r24, Y+5	; 0x05
+ 3a2:	0e 94 49 00 	call	0x92	; 0x92 <get_port_index>
+ 3a6:	88 2f       	mov	r24, r24
+ 3a8:	90 e0       	ldi	r25, 0x00	; 0
+ 3aa:	88 0f       	add	r24, r24
+ 3ac:	99 1f       	adc	r25, r25
+ 3ae:	fc 01       	movw	r30, r24
+ 3b0:	e8 59       	subi	r30, 0x98	; 152
+ 3b2:	ff 4f       	sbci	r31, 0xFF	; 255
+ 3b4:	01 90       	ld	r0, Z+
+ 3b6:	f0 81       	ld	r31, Z
+ 3b8:	e0 2d       	mov	r30, r0
+ 3ba:	80 81       	ld	r24, Z
+ 3bc:	28 2f       	mov	r18, r24
+ 3be:	30 e0       	ldi	r19, 0x00	; 0
+ 3c0:	8a 81       	ldd	r24, Y+2	; 0x02
+ 3c2:	88 2f       	mov	r24, r24
+ 3c4:	90 e0       	ldi	r25, 0x00	; 0
+ 3c6:	a9 01       	movw	r20, r18
+ 3c8:	02 c0       	rjmp	.+4      	; 0x3ce <GPIO_u8_ReadPinDir+0x4e>
+ 3ca:	55 95       	asr	r21
+ 3cc:	47 95       	ror	r20
+ 3ce:	8a 95       	dec	r24
+ 3d0:	e2 f7       	brpl	.-8      	; 0x3ca <GPIO_u8_ReadPinDir+0x4a>
+ 3d2:	ca 01       	movw	r24, r20
+ 3d4:	81 70       	andi	r24, 0x01	; 1
+ 3d6:	eb 81       	ldd	r30, Y+3	; 0x03
+ 3d8:	fc 81       	ldd	r31, Y+4	; 0x04
+ 3da:	80 83       	st	Z, r24
+		API_Status = No_error;
+ 3dc:	81 e0       	ldi	r24, 0x01	; 1
+ 3de:	89 83       	std	Y+1, r24	; 0x01
+	}
+
+	return API_Status ;
+ 3e0:	89 81       	ldd	r24, Y+1	; 0x01
+
+
+}
+ 3e2:	0f 90       	pop	r0
+ 3e4:	0f 90       	pop	r0
+ 3e6:	0f 90       	pop	r0
+ 3e8:	0f 90       	pop	r0
+ 3ea:	0f 90       	pop	r0
+ 3ec:	cf 91       	pop	r28
+ 3ee:	df 91       	pop	r29
+ 3f0:	08 95       	ret
+
+000003f2 <GPIO_u8_ReadPortVal>:
+/////////////////////////////////////////////////
+//===================PORT==========================
+//Data
+/*Comment!: Read Port Value */
+u8 GPIO_u8_ReadPortVal(u8* PtrToVal , u8 Port_Name)
+{
+ 3f2:	df 93       	push	r29
+ 3f4:	cf 93       	push	r28
+ 3f6:	00 d0       	rcall	.+0      	; 0x3f8 <GPIO_u8_ReadPortVal+0x6>
+ 3f8:	0f 92       	push	r0
+ 3fa:	cd b7       	in	r28, 0x3d	; 61
+ 3fc:	de b7       	in	r29, 0x3e	; 62
+ 3fe:	9a 83       	std	Y+2, r25	; 0x02
+ 400:	89 83       	std	Y+1, r24	; 0x01
+ 402:	6b 83       	std	Y+3, r22	; 0x03
+
+	*PtrToVal =  *GPIO_pins [ get_port_index(Port_Name) ] ;
+ 404:	8b 81       	ldd	r24, Y+3	; 0x03
+ 406:	0e 94 49 00 	call	0x92	; 0x92 <get_port_index>
+ 40a:	88 2f       	mov	r24, r24
+ 40c:	90 e0       	ldi	r25, 0x00	; 0
+ 40e:	88 0f       	add	r24, r24
+ 410:	99 1f       	adc	r25, r25
+ 412:	fc 01       	movw	r30, r24
+ 414:	e0 59       	subi	r30, 0x90	; 144
+ 416:	ff 4f       	sbci	r31, 0xFF	; 255
+ 418:	01 90       	ld	r0, Z+
+ 41a:	f0 81       	ld	r31, Z
+ 41c:	e0 2d       	mov	r30, r0
+ 41e:	80 81       	ld	r24, Z
+ 420:	e9 81       	ldd	r30, Y+1	; 0x01
+ 422:	fa 81       	ldd	r31, Y+2	; 0x02
+ 424:	80 83       	st	Z, r24
+
+	return No_error ;
+ 426:	81 e0       	ldi	r24, 0x01	; 1
+
+}
+ 428:	0f 90       	pop	r0
+ 42a:	0f 90       	pop	r0
+ 42c:	0f 90       	pop	r0
+ 42e:	cf 91       	pop	r28
+ 430:	df 91       	pop	r29
+ 432:	08 95       	ret
+
+00000434 <GPIO_u8_WritePortVal>:
+
+/*Comment!: Write Port Value */
+u8 GPIO_u8_WritePortVal(u8 PortVal , u8 Port_Name)
+{
+ 434:	df 93       	push	r29
+ 436:	cf 93       	push	r28
+ 438:	00 d0       	rcall	.+0      	; 0x43a <GPIO_u8_WritePortVal+0x6>
+ 43a:	cd b7       	in	r28, 0x3d	; 61
+ 43c:	de b7       	in	r29, 0x3e	; 62
+ 43e:	89 83       	std	Y+1, r24	; 0x01
+ 440:	6a 83       	std	Y+2, r22	; 0x02
+	*GPIO_ports[ get_port_index(Port_Name) ] = PortVal ;
+ 442:	8a 81       	ldd	r24, Y+2	; 0x02
+ 444:	0e 94 49 00 	call	0x92	; 0x92 <get_port_index>
+ 448:	88 2f       	mov	r24, r24
+ 44a:	90 e0       	ldi	r25, 0x00	; 0
+ 44c:	88 0f       	add	r24, r24
+ 44e:	99 1f       	adc	r25, r25
+ 450:	fc 01       	movw	r30, r24
+ 452:	e0 5a       	subi	r30, 0xA0	; 160
+ 454:	ff 4f       	sbci	r31, 0xFF	; 255
+ 456:	01 90       	ld	r0, Z+
+ 458:	f0 81       	ld	r31, Z
+ 45a:	e0 2d       	mov	r30, r0
+ 45c:	89 81       	ldd	r24, Y+1	; 0x01
+ 45e:	80 83       	st	Z, r24
+	return No_error ;
+ 460:	81 e0       	ldi	r24, 0x01	; 1
+
+
+}
+ 462:	0f 90       	pop	r0
+ 464:	0f 90       	pop	r0
+ 466:	cf 91       	pop	r28
+ 468:	df 91       	pop	r29
+ 46a:	08 95       	ret
+
+0000046c <GPIO_u8_WritePortDir>:
+
+//Direction
+/*Comment!: Write Port Direction */
+u8 GPIO_u8_WritePortDir(u8 PortDir, u8 Port_Name)
+{
+ 46c:	df 93       	push	r29
+ 46e:	cf 93       	push	r28
+ 470:	00 d0       	rcall	.+0      	; 0x472 <GPIO_u8_WritePortDir+0x6>
+ 472:	cd b7       	in	r28, 0x3d	; 61
+ 474:	de b7       	in	r29, 0x3e	; 62
+ 476:	89 83       	std	Y+1, r24	; 0x01
+ 478:	6a 83       	std	Y+2, r22	; 0x02
+	  *GPIO_dirs [ get_port_index(Port_Name) ] = PortDir;
+ 47a:	8a 81       	ldd	r24, Y+2	; 0x02
+ 47c:	0e 94 49 00 	call	0x92	; 0x92 <get_port_index>
+ 480:	88 2f       	mov	r24, r24
+ 482:	90 e0       	ldi	r25, 0x00	; 0
+ 484:	88 0f       	add	r24, r24
+ 486:	99 1f       	adc	r25, r25
+ 488:	fc 01       	movw	r30, r24
+ 48a:	e8 59       	subi	r30, 0x98	; 152
+ 48c:	ff 4f       	sbci	r31, 0xFF	; 255
+ 48e:	01 90       	ld	r0, Z+
+ 490:	f0 81       	ld	r31, Z
+ 492:	e0 2d       	mov	r30, r0
+ 494:	89 81       	ldd	r24, Y+1	; 0x01
+ 496:	80 83       	st	Z, r24
+
+	return No_error ;
+ 498:	81 e0       	ldi	r24, 0x01	; 1
+
+}
+ 49a:	0f 90       	pop	r0
+ 49c:	0f 90       	pop	r0
+ 49e:	cf 91       	pop	r28
+ 4a0:	df 91       	pop	r29
+ 4a2:	08 95       	ret
+
+000004a4 <GPIO_u8_ReadPortDir>:
+
+/*Comment!: Read Port Direction */
+u8 GPIO_u8_ReadPortDir(u8* PtrToDir, u8 Port_Name)
+{
+ 4a4:	df 93       	push	r29
+ 4a6:	cf 93       	push	r28
+ 4a8:	00 d0       	rcall	.+0      	; 0x4aa <GPIO_u8_ReadPortDir+0x6>
+ 4aa:	0f 92       	push	r0
+ 4ac:	cd b7       	in	r28, 0x3d	; 61
+ 4ae:	de b7       	in	r29, 0x3e	; 62
+ 4b0:	9a 83       	std	Y+2, r25	; 0x02
+ 4b2:	89 83       	std	Y+1, r24	; 0x01
+ 4b4:	6b 83       	std	Y+3, r22	; 0x03
+	*PtrToDir =  *GPIO_dirs[ get_port_index(Port_Name) ] ;
+ 4b6:	8b 81       	ldd	r24, Y+3	; 0x03
+ 4b8:	0e 94 49 00 	call	0x92	; 0x92 <get_port_index>
+ 4bc:	88 2f       	mov	r24, r24
+ 4be:	90 e0       	ldi	r25, 0x00	; 0
+ 4c0:	88 0f       	add	r24, r24
+ 4c2:	99 1f       	adc	r25, r25
+ 4c4:	fc 01       	movw	r30, r24
+ 4c6:	e8 59       	subi	r30, 0x98	; 152
+ 4c8:	ff 4f       	sbci	r31, 0xFF	; 255
+ 4ca:	01 90       	ld	r0, Z+
+ 4cc:	f0 81       	ld	r31, Z
+ 4ce:	e0 2d       	mov	r30, r0
+ 4d0:	80 81       	ld	r24, Z
+ 4d2:	e9 81       	ldd	r30, Y+1	; 0x01
+ 4d4:	fa 81       	ldd	r31, Y+2	; 0x02
+ 4d6:	80 83       	st	Z, r24
+
+	return No_error ;
+ 4d8:	81 e0       	ldi	r24, 0x01	; 1
+
+
+}
+ 4da:	0f 90       	pop	r0
+ 4dc:	0f 90       	pop	r0
+ 4de:	0f 90       	pop	r0
+ 4e0:	cf 91       	pop	r28
+ 4e2:	df 91       	pop	r29
+ 4e4:	08 95       	ret
+
+000004e6 <main>:
+#include "mydelay.h"
+#define output 1
+#define input 0
+
+int main ()
+{
+ 4e6:	df 93       	push	r29
+ 4e8:	cf 93       	push	r28
+ 4ea:	00 d0       	rcall	.+0      	; 0x4ec <main+0x6>
+ 4ec:	cd b7       	in	r28, 0x3d	; 61
+ 4ee:	de b7       	in	r29, 0x3e	; 62
+	GPIO_voidInit();
+ 4f0:	0e 94 9c 00 	call	0x138	; 0x138 <GPIO_voidInit>
+	GPIO_u8_WritePinDir(5,output,'D') ;
+ 4f4:	85 e0       	ldi	r24, 0x05	; 5
+ 4f6:	61 e0       	ldi	r22, 0x01	; 1
+ 4f8:	44 e4       	ldi	r20, 0x44	; 68
+ 4fa:	0e 94 58 01 	call	0x2b0	; 0x2b0 <GPIO_u8_WritePinDir>
+	int toggle_led = 1;
+ 4fe:	81 e0       	ldi	r24, 0x01	; 1
+ 500:	90 e0       	ldi	r25, 0x00	; 0
+ 502:	9a 83       	std	Y+2, r25	; 0x02
+ 504:	89 83       	std	Y+1, r24	; 0x01
+	while(1)
+	{
+		GPIO_u8_WritePinVal(5,toggle_led,'D') ;
+ 506:	99 81       	ldd	r25, Y+1	; 0x01
+ 508:	85 e0       	ldi	r24, 0x05	; 5
+ 50a:	69 2f       	mov	r22, r25
+ 50c:	44 e4       	ldi	r20, 0x44	; 68
+ 50e:	0e 94 f0 00 	call	0x1e0	; 0x1e0 <GPIO_u8_WritePinVal>
+		toggle_led ^= 1 ;
+ 512:	29 81       	ldd	r18, Y+1	; 0x01
+ 514:	3a 81       	ldd	r19, Y+2	; 0x02
+ 516:	81 e0       	ldi	r24, 0x01	; 1
+ 518:	90 e0       	ldi	r25, 0x00	; 0
+ 51a:	82 27       	eor	r24, r18
+ 51c:	93 27       	eor	r25, r19
+ 51e:	9a 83       	std	Y+2, r25	; 0x02
+ 520:	89 83       	std	Y+1, r24	; 0x01
+		DELAY_MS(1000);
+ 522:	85 e3       	ldi	r24, 0x35	; 53
+ 524:	92 e8       	ldi	r25, 0x82	; 130
+ 526:	a0 e0       	ldi	r26, 0x00	; 0
+ 528:	b0 e0       	ldi	r27, 0x00	; 0
+ 52a:	80 93 78 00 	sts	0x0078, r24
+ 52e:	90 93 79 00 	sts	0x0079, r25
+ 532:	a0 93 7a 00 	sts	0x007A, r26
+ 536:	b0 93 7b 00 	sts	0x007B, r27
+ 53a:	14 c0       	rjmp	.+40     	; 0x564 <main+0x7e>
+ 53c:	00 00       	nop
+ 53e:	80 91 78 00 	lds	r24, 0x0078
+ 542:	90 91 79 00 	lds	r25, 0x0079
+ 546:	a0 91 7a 00 	lds	r26, 0x007A
+ 54a:	b0 91 7b 00 	lds	r27, 0x007B
+ 54e:	01 97       	sbiw	r24, 0x01	; 1
+ 550:	a1 09       	sbc	r26, r1
+ 552:	b1 09       	sbc	r27, r1
+ 554:	80 93 78 00 	sts	0x0078, r24
+ 558:	90 93 79 00 	sts	0x0079, r25
+ 55c:	a0 93 7a 00 	sts	0x007A, r26
+ 560:	b0 93 7b 00 	sts	0x007B, r27
+ 564:	80 91 78 00 	lds	r24, 0x0078
+ 568:	90 91 79 00 	lds	r25, 0x0079
+ 56c:	a0 91 7a 00 	lds	r26, 0x007A
+ 570:	b0 91 7b 00 	lds	r27, 0x007B
+ 574:	00 97       	sbiw	r24, 0x00	; 0
+ 576:	a1 05       	cpc	r26, r1
+ 578:	b1 05       	cpc	r27, r1
+ 57a:	01 f7       	brne	.-64     	; 0x53c <main+0x56>
+ 57c:	c4 cf       	rjmp	.-120    	; 0x506 <main+0x20>
+
+0000057e <_exit>:
+ 57e:	f8 94       	cli
+
+00000580 <__stop_program>:
+ 580:	ff cf       	rjmp	.-2      	; 0x580 <__stop_program>
