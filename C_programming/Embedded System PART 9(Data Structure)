@@ -1,0 +1,137 @@
+/*
+ * main.c
+ *
+ *  Created on: Dec 15, 2018
+ *      Author: keroles Shenouda
+ *      Learn In Depth
+ */
+#include<stdio.h>
+#define LIFO_buffer_length 5
+
+typedef struct {
+	unsigned int length ;
+	unsigned char* base ;
+	unsigned char* head ;
+	unsigned int count ;
+} LIFO_Buf_t ;
+
+typedef enum {
+	LIFO_no_error,
+	LIFO_full,
+	LIFO_not_full,
+	LIFO_empty,
+	LIFO_not_empty,
+	LIFO_Null
+}Byffer_Status;
+
+Byffer_Status LIFO_Add_item (LIFO_Buf_t* lBuf, unsigned char item);
+Byffer_Status LIFO_pop_item (LIFO_Buf_t* lBuf, unsigned char* item);
+
+int main()
+{
+	unsigned Staticbuffer [LIFO_buffer_length];
+	unsigned char i , temp ;
+	LIFO_Buf_t first_buffer, second_buffer ;
+
+	//-------------- Initialization ---------------
+	//Dynamically ----------> Method
+	//Set Base pointer
+	first_buffer.base = (unsigned char*) malloc(LIFO_buffer_length);
+	if (!first_buffer.base) /* handle this error */ ;
+
+	//Set Length
+	first_buffer.length = 5 ;
+
+	//Set head pointer
+	first_buffer.head = first_buffer.base ;
+
+	//(optional) set current count
+	first_buffer.count = 0 ;
+
+	printf ( "\n first_buffer (Dynamic allocation) LIFO_push_item = " );
+	for (i=0 ; i<5 ; i++){
+		printf ( " %d," ,i );
+		LIFO_Add_item(&first_buffer , i);
+	}
+
+	printf ( "\n first_buffer (Dynamic allocation) LIFO_pop_item = ");
+	for (i=0 ; i<5 ; i++){
+		LIFO_pop_item(&first_buffer , &temp);
+		printf ( " %d," ,temp );
+	}
+
+
+	//----or------
+
+	//Statically
+	second_buffer.length = 5 ;
+	second_buffer.base = &Staticbuffer[0] ;
+	//Set head pointer
+	second_buffer.head = second_buffer.base ;
+
+	//(optional) set current count
+	second_buffer.count = 0 ;
+
+	printf ( "\n second_buffer (static allocation) LIFO_push_item = " );
+	for (i=0 ; i<5 ; i++){
+		printf ( " %d," ,i );
+		LIFO_Add_item(&second_buffer , i);
+	}
+
+	printf ( "\n second_buffer (static allocation) LIFO_pop_item = ");
+	for (i=0 ; i<5 ; i++){
+		LIFO_pop_item(&second_buffer , &temp);
+		printf ( " %d," ,temp );
+	}
+
+
+	return 0 ;
+}
+
+
+Byffer_Status LIFO_Is_Buf_Full (LIFO_Buf_t* lBuf)
+{
+	//check if pointer are valid
+	if (!lBuf || !lBuf->head || !lBuf->base){
+		return LIFO_Null ;
+	}
+	if (lBuf->head >= (lBuf->base + lBuf->length )){
+		return LIFO_full ;
+	}else
+		return LIFO_not_full ;
+}
+
+
+Byffer_Status LIFO_Add_item (LIFO_Buf_t* lBuf, unsigned char item)
+{
+	//check if pointer are valid
+	if (!lBuf || !lBuf->head || !lBuf->base){
+		return LIFO_Null ;
+	}
+	//check if buffer is full
+	if (LIFO_Is_Buf_Full(lBuf) == LIFO_full){
+		return LIFO_Null ;
+	}
+	*(lBuf->head) = item ;
+	lBuf->head++;
+	lBuf->count++ ;
+
+	return LIFO_no_error ;
+}
+
+Byffer_Status LIFO_pop_item (LIFO_Buf_t* lBuf, unsigned char* item)
+{
+	//check if pointer are valid
+	if (!lBuf || !lBuf->head || !lBuf->base){
+		return LIFO_Null ;
+	}
+	//check if buffer is empty
+	if (lBuf->base == lBuf->head){
+		return LIFO_empty ;
+	}
+	lBuf->head--;
+	*item = *(lBuf->head) ;
+	lBuf->count-- ;
+
+	return LIFO_no_error ;
+}
