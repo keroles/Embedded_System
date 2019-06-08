@@ -1,0 +1,161 @@
+/*
+ * main.c
+ *
+ *  Created on: Dec 15, 2018
+ *      Author: keroles Shenouda
+ *      Learn In Depth
+ *      Circular Buffer & FIFOS (queu) implementation using Dynamic/Static Allocation
+ */
+#include<stdio.h>
+#define FIFO_buffer_length 5
+
+typedef struct {
+	unsigned int length ;
+	unsigned char* base ;
+	unsigned char* head ;
+	unsigned char* tail ;
+	unsigned int count ;
+} FIFO_Buf_t ;
+
+typedef enum {
+	FIFO_no_error,
+	FIFO_full,
+	FIFO_not_full,
+	FIFO_empty,
+	FIFO_not_empty,
+	FIFO_Null
+}Byffer_Status;
+
+Byffer_Status FIFO_Add_item (FIFO_Buf_t* lBuf, unsigned char item);
+Byffer_Status FIFO_remove_item (FIFO_Buf_t* lBuf, unsigned char* item);
+
+int main()
+{
+	unsigned Staticbuffer [FIFO_buffer_length];
+	unsigned char i , temp ;
+	FIFO_Buf_t first_buffer, second_buffer ;
+
+	//-------------- Initialization ---------------
+	//Dynamically ----------> Method
+	//Set Base pointer
+	first_buffer.base = (unsigned char*) malloc(FIFO_buffer_length);
+	if (!first_buffer.base) /* handle this error */ ;
+
+	//Set Length
+	first_buffer.length = 5 ;
+
+	//Set head pointer
+	first_buffer.head = first_buffer.base ;
+	first_buffer.tail = first_buffer.base ;
+	//(optional) set current count
+	first_buffer.count = 0 ;
+
+	printf ( "\n first_buffer (Dynamic allocation) FIFO_push_item = " );
+	for (i=0 ; i<5 ; i++){
+		printf ( " %d," ,i );
+		FIFO_Add_item(&first_buffer , i);
+	}
+
+	printf ( "\n first_buffer (Dynamic allocation) FIFO_remove_item = ");
+	for (i=0 ; i<5 ; i++){
+		FIFO_remove_item(&first_buffer , &temp);
+		printf ( " %d," ,temp );
+	}
+
+
+	//----or------
+
+	//Statically
+	second_buffer.length = 5 ;
+	second_buffer.base = &Staticbuffer[0] ;
+	//Set head pointer
+	second_buffer.head = second_buffer.base ;
+	second_buffer.tail = second_buffer.base ;
+
+
+	//(optional) set current count
+	second_buffer.count = 0 ;
+
+	printf ( "\n second_buffer (static allocation) FIFO_push_item = " );
+	for (i=0 ; i<5 ; i++){
+		printf ( " %d," ,i );
+		FIFO_Add_item(&second_buffer , i);
+	}
+
+	printf ( "\n second_buffer (static allocation) FIFO_remove_item = ");
+	for (i=0 ; i<2 ; i++){
+		FIFO_remove_item(&second_buffer , &temp);
+		printf ( " %d," ,temp );
+	}
+	printf ( "\n second_buffer (static allocation) FIFO_push_item = " );
+		for (i=0 ; i<2 ; i++){
+			printf ( " %d," ,i );
+			FIFO_Add_item(&second_buffer , i);
+		}
+		printf ( "\n second_buffer (static allocation) FIFO_remove_item = ");
+			for (i=0 ; i<5 ; i++){
+				FIFO_remove_item(&second_buffer , &temp);
+				printf ( " %d," ,temp );
+			}
+	return 0 ;
+}
+
+
+Byffer_Status FIFO_Is_Buf_Full (FIFO_Buf_t* lBuf)
+{
+	//check if pointer are valid
+	if (!lBuf || !lBuf->head || !lBuf->base || !lBuf->tail){
+		return FIFO_Null ;
+	}
+	if (lBuf->length == lBuf->count){
+		return FIFO_full ;
+	}else
+		return FIFO_not_full ;
+}
+
+
+Byffer_Status FIFO_Add_item (FIFO_Buf_t* lBuf, unsigned char item)
+{
+	//check if pointer are valid
+	if (!lBuf || !lBuf->head || !lBuf->base || !lBuf->tail){
+		return FIFO_Null ;
+	}
+	//check if buffer is full
+	if (FIFO_Is_Buf_Full(lBuf) == FIFO_full){
+		printf ("fifo full \n");
+		return FIFO_Null ;
+	}
+	*(lBuf->head) = item ;
+	lBuf->count++ ;
+
+	//Circler  FIFO
+	if (lBuf->head == (lBuf->base + (lBuf->length -1)))
+		lBuf->head = lBuf->base ;
+	else
+		lBuf->head++;
+
+	return FIFO_no_error ;
+}
+
+Byffer_Status FIFO_remove_item (FIFO_Buf_t* lBuf, unsigned char* item)
+{
+	//check if pointer are valid
+	if (!lBuf || !lBuf->head || !lBuf->base || !lBuf->tail){
+		return FIFO_Null ;
+	}
+	//check if buffer is empty
+	if (lBuf->count == 0){
+		printf ("fifo empty \n");
+		return FIFO_empty ;
+	}
+	*item = *(lBuf->tail) ;
+	lBuf->count-- ;
+
+	if (lBuf->tail == (lBuf->base + (lBuf->length -1)))
+			lBuf->tail = lBuf->base ;
+		else
+			lBuf->tail++;
+
+
+	return FIFO_no_error ;
+}
